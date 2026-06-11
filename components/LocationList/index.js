@@ -2,6 +2,9 @@ import LocationCard from "@/components/LocationCard";
 import styled from "styled-components";
 
 export default function LocationList({ locations }) {
+  if (locations.length === 0)
+    return <p>There is no location in your database.</p>;
+
   return (
     <StyledList>
       {locations.map((location) => (
