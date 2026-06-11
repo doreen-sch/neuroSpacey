@@ -6,7 +6,12 @@ const locationSchema = new Schema(
     name: { type: String, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },
-    address: { type: String, required: true },
+    address: {
+      street: { type: String, required: true },
+      houseNumber: { type: String, required: true },
+      zipCode: { type: String, required: true },
+      city: { type: String, required: true },
+    },
     coordinates: { lat: Number, lng: Number },
     image: {
       url: { type: String },

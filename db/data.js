@@ -33,7 +33,7 @@ const data = [
     name: "Stille Stunde Ikea",
     category: "Einkaufen",
     description:
-      "Stille Stunde in jedem Ikea Einrichtngshaus, deutschlandweit, an jedem Mittwich von 17:00 Uhr bis 19:00 Uhr.",
+      "Stille Stunde in jedem Ikea Einrichtungshaus, deutschlandweit, an jedem Mittwich von 17:00 Uhr bis 19:00 Uhr.",
     address: {
       Straße: "Petersstraße",
       Hausnummer: "36 - 44",
@@ -46,9 +46,9 @@ const data = [
   },
   {
     name: "Friseur",
-    category: "???",
+    category: "Dienstleistung",
     description:
-      "Ruhige Arbeitsathmosphäre, dimmbares Licht, visuell abgetrennter Bereich. Chat- oder Chill-Mood einfach über ein Schild am Platz anzeigen. Bei 'Chill' wird im gesamten Salon möglichst wenig gesprochen.",
+      "Ruhige Arbeitsatmosphäre, dimmbares Licht, visuell abgetrennter Bereich. Chat- oder Chill-Mood einfach über ein Schild am Platz anzeigen. Bei 'Chill' wird im gesamten Salon möglichst wenig gesprochen.",
     address: {
       Straße: "Löhrstraße",
       Hausnummer: "14",
