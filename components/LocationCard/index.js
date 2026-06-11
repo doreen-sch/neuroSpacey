@@ -7,7 +7,7 @@ export default function LocationCard({ location }) {
   return (
     <StyledCard>
       <h2>{name}</h2>
-      <p>{category}</p>
+      <p>Kategorie: {category}</p>
       <StyledImageContainer>
         <StyledImage src={image} alt={name} fill />
       </StyledImageContainer>
