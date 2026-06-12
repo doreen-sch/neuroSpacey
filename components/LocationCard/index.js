@@ -1,19 +1,22 @@
 import Image from "next/image";
+import Link from "next/link";
 import styled from "styled-components";
 
 export default function LocationCard({ location }) {
   const { image, name, category } = location;
 
   return (
-    <StyledCard>
-      <h2>{name}</h2>
-      <p>Kategorie: {category}</p>
-{image?.url && (
-     <StyledImageContainer>
-         <StyledImage src={image.url} alt={name} fill />
-     </StyledImageContainer>
-)}
-    </StyledCard>
+    <Link href={`/locations/${location._id}`}>
+      <StyledCard>
+        <h2>{name}</h2>
+        <p>Kategorie: {category}</p>
+        {image?.url && (
+          <StyledImageContainer>
+            <StyledImage src={image.url} alt={name} fill />
+          </StyledImageContainer>
+        )}
+      </StyledCard>
+    </Link>
   );
 }
 

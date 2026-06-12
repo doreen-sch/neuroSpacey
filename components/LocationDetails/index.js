@@ -16,7 +16,12 @@ export default function LocationDetails({ location }) {
       </div>
       <div>
         {image?.url && (
-          <Image src={image.url} alt={`Image of ${location.name}`} fill />
+          <Image
+            src={image.url}
+            alt={`Image of ${location.name}`}
+            height={0}
+            width={0}
+          />
         )}
       </div>
     </>

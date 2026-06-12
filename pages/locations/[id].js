@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import LocationDetails from "@/components/LocationDetails";
 import useSWR from "swr";
+import Link from "next/link";
 
 export default function LocationDetailPage() {
   const router = useRouter();
@@ -16,5 +17,10 @@ export default function LocationDetailPage() {
     return <h1>Something went wrong.</h1>;
   }
 
-  return <LocationDetails location={location} />;
+  return (
+    <>
+      <Link href={`../`}>⬅️ Zurück zur Listenansicht</Link>
+      <LocationDetails location={location} />
+    </>
+  );
 }
