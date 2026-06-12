@@ -1,0 +1,38 @@
+import { useRouter } from "next/router";
+import LocationDetails from "@/components/LocationDetail";
+import useSWR from "swr";
+import Link from "next/link";
+import styled from "styled-components";
+
+export default function LocationDetailPage() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data: location, isLoading, error } = useSWR(`/api/locations/${id}`);
+
+  if (isLoading) {
+    return <h1>Is Loading…</h1>;
+  }
+
+  if (!location || error) {
+    return <h1>Something went wrong.</h1>;
+  }
+
+  return (
+    <>
+      <StyledLinkContainer>
+        <StyledLink href={`../`}>⬅️ Zurück zur Listenansicht</StyledLink>
+      </StyledLinkContainer>
+      <LocationDetails location={location} />
+    </>
+  );
+}
+
+const StyledLinkContainer = styled.div`
+  margin: 2rem 0rem 0rem 2rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: darkslateblue;
+`;
