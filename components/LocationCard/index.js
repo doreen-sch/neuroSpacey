@@ -8,9 +8,11 @@ export default function LocationCard({ location }) {
     <StyledCard>
       <h2>{name}</h2>
       <p>Kategorie: {category}</p>
-      <StyledImageContainer>
-        <StyledImage src={image} alt={name} fill />
-      </StyledImageContainer>
+{image?.url && (
+     <StyledImageContainer>
+         <StyledImage src={image.url} alt={name} fill />
+     </StyledImageContainer>
+)}
     </StyledCard>
   );
 }
