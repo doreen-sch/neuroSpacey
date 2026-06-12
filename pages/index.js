@@ -8,7 +8,7 @@ export default function HomePage() {
     return <h1>Oops… something went wrong.</h1>;
   }
 
-  if (!locations) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading...</p>;
 
   return <LocationList locations={locations} />;
 }
