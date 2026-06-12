@@ -17,6 +17,7 @@ export default function LocationList({ locations }) {
 }
 
 const StyledList = styled.ul`
+  justify-content: center;
   list-style: none;
   width: 100%;
   padding: 0 2rem 2rem 2rem;

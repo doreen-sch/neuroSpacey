@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import LocationDetails from "@/components/LocationDetails";
 import useSWR from "swr";
 import Link from "next/link";
+import styled from "styled-components";
 
 export default function LocationDetailPage() {
   const router = useRouter();
@@ -19,8 +20,19 @@ export default function LocationDetailPage() {
 
   return (
     <>
-      <Link href={`../`}>⬅️ Zurück zur Listenansicht</Link>
+      <StyledLinkContainer>
+        <StyledLink href={`../`}>⬅️ Zurück zur Listenansicht</StyledLink>
+      </StyledLinkContainer>
       <LocationDetails location={location} />
     </>
   );
 }
+
+const StyledLinkContainer = styled.div`
+  margin: 2rem 0rem 0rem 2rem;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: darkslateblue;
+`;

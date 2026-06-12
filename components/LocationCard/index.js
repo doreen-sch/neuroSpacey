@@ -6,21 +6,34 @@ export default function LocationCard({ location }) {
   const { image, name, category } = location;
 
   return (
-    <Link href={`/locations/${location._id}`}>
-      <StyledCard>
-        <h2>{name}</h2>
-        <p>Kategorie: {category}</p>
+    <StyledLink href={`/locations/${location._id}`}>
+      <Card>
+        <LocationName>{name}</LocationName>
+        <Category>Kategorie: {category}</Category>
         {image?.url && (
-          <StyledImageContainer>
+          <ImageContainer>
             <StyledImage src={image.url} alt={name} fill />
-          </StyledImageContainer>
+          </ImageContainer>
         )}
-      </StyledCard>
-    </Link>
+      </Card>
+    </StyledLink>
   );
 }
 
-const StyledCard = styled.div`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
+const LocationName = styled.h2`
+  margin: 1rem;
+`;
+
+const Category = styled.p`
+  margin: 1rem;
+`;
+
+const Card = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   overflow: hidden;
@@ -34,7 +47,7 @@ const StyledCard = styled.div`
     0 16px 16px hsl(0deg 0% 0% / 0.075);
 `;
 
-const StyledImageContainer = styled.div`
+const ImageContainer = styled.div`
   position: relative;
   height: 400px;
 `;
