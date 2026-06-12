@@ -20,6 +20,8 @@ const StyledList = styled.ul`
   list-style: none;
   width: 100%;
   padding: 0 2rem 2rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
 `;
 
