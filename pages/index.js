@@ -1,7 +1,14 @@
+import useSWR from "swr";
+import LocationList from "@/components/LocationList";
+
 export default function HomePage() {
-  return (
-    <div>
-      <h1>Hello from Next.js</h1>
-    </div>
-  );
+  const { data: locations, error, isLoading } = useSWR("/api/locations");
+
+  if (error) {
+    return <h1>Oops… something went wrong.</h1>;
+  }
+
+  if (isLoading) return <p>Loading...</p>;
+
+  return <LocationList locations={locations} />;
 }
