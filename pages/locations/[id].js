@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import LocationDetails from "@/components/LocationDetails";
+import LocationDetails from "@/components/LocationDetail";
 import useSWR from "swr";
 import Link from "next/link";
 import styled from "styled-components";
