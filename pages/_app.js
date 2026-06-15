@@ -1,6 +1,5 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
-import Header from "@/components/Header";
 import styled from "styled-components";
 import { Toaster } from "react-hot-toast";
 
@@ -23,7 +22,6 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Toaster />
-      <Header></Header>
       <StyledMain>
         <Component {...pageProps} />
       </StyledMain>

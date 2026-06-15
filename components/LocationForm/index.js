@@ -1,7 +1,7 @@
-export default function LocationForm({ location, onSubmit }) {
+export default function LocationForm({ location, onAddLocation }) {
   return (
     <>
-      <form aria-labelledby="form-title" onSubmit={onSubmit}>
+      <form aria-labelledby="form-title" onSubmit={onAddLocation}>
         <h2 id="form-title">Neuen Ort hinzufügen</h2>
         <div>
           <label>Name: </label>

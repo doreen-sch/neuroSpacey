@@ -61,7 +61,16 @@ const StyledOverlay = styled(Dialog.Overlay)`
 `;
 
 const StyledContent = styled(Dialog.Content)`
-  position: relative;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 500px);
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  padding: 2rem;
 `;
 
 const StyledClose = styled(Dialog.Close)`

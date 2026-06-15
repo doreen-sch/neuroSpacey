@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import LocationList from "@/components/LocationList";
+import Header from "@/components/Header";
 import toast from "react-hot-toast";
 
 export default function HomePage() {
@@ -20,6 +21,13 @@ export default function HomePage() {
     event.preventDefault();
     const formData = new FormData(event.target);
     const locationData = Object.fromEntries(formData);
+    locationData.isQuietHour = locationData.isQuietHour === "on";
+    locationData.address = {
+      street: locationData.street,
+      houseNumber: locationData.houseNumber,
+      zipCode: locationData.zipCode,
+      city: locationData.city,
+    };
 
     try {
       const uploadResponse = await fetch("/api/locations", {
@@ -42,5 +50,10 @@ export default function HomePage() {
     }
   }
 
-  return <LocationList locations={locations} />;
+  return (
+    <>
+      <Header onAddLocation={onAddLocation} />
+      <LocationList locations={locations} />
+    </>
+  );
 }

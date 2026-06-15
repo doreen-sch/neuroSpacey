@@ -1,10 +1,13 @@
 import Popover from "../Popover";
 import styled from "styled-components";
+import LocationForm from "../LocationForm";
 
-export default function Header() {
+export default function Header({ onAddLocation }) {
   return (
     <StyledHeader>
-      <Popover></Popover>
+      <Popover>
+        <LocationForm onAddLocation={onAddLocation} />
+      </Popover>
     </StyledHeader>
   );
 }
