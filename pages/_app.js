@@ -1,5 +1,7 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
+import Header from "@/components/Header";
+import styled from "styled-components";
 
 const fetcher = async (url) => {
   const result = await fetch(url);
@@ -19,7 +21,14 @@ export default function App({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Header></Header>
+      <StyledMain>
+        <Component {...pageProps} />
+      </StyledMain>
     </SWRConfig>
   );
 }
+
+const StyledMain = styled.main`
+  padding-top: 3rem;
+`;
