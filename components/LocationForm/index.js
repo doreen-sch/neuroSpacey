@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function LocationForm({
-  location,
   onAddLocation,
   onClose,
   formData,

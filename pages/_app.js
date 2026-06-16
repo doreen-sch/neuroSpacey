@@ -1,6 +1,5 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
-import styled from "styled-components";
 import { Toaster } from "react-hot-toast";
 
 const fetcher = async (url) => {
@@ -22,13 +21,9 @@ export default function App({ Component, pageProps }) {
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
       <Toaster />
-      <StyledMain>
+      <main>
         <Component {...pageProps} />
-      </StyledMain>
+      </main>
     </SWRConfig>
   );
 }
-
-const StyledMain = styled.main`
-  padding-top: 3rem;
-`;

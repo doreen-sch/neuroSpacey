@@ -2,6 +2,7 @@ import useSWR from "swr";
 import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
 import toast from "react-hot-toast";
+import styled from "styled-components";
 
 export default function HomePage() {
   const {
@@ -51,9 +52,13 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <StyledPageWrapper>
       <Header onAddLocation={onAddLocation} />
       <LocationList locations={locations} />
-    </>
+    </StyledPageWrapper>
   );
 }
+
+const StyledPageWrapper = styled.div`
+  padding-top: 2rem;
+`;
