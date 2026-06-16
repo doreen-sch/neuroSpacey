@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { useState } from "react";
 import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
 import toast from "react-hot-toast";
@@ -12,6 +13,17 @@ export default function HomePage() {
     mutate,
   } = useSWR("/api/locations");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
+    city: "",
+    category: "",
+    isQuietHour: false,
+    description: "",
+  });
+
   if (error) {
     return <h1>Oops… something went wrong.</h1>;
   }
@@ -20,8 +32,8 @@ export default function HomePage() {
 
   async function onAddLocation(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const locationData = Object.fromEntries(formData);
+    const locationFormData = new FormData(event.target);
+    const locationData = Object.fromEntries(locationFormData);
     locationData.isQuietHour = locationData.isQuietHour === "on";
     locationData.address = {
       street: locationData.street,
@@ -53,7 +65,11 @@ export default function HomePage() {
 
   return (
     <StyledPageWrapper>
-      <Header onAddLocation={onAddLocation} />
+      <Header
+        onAddLocation={onAddLocation}
+        formData={formData}
+        setFormData={setFormData}
+      />
       <LocationList locations={locations} />
     </StyledPageWrapper>
   );

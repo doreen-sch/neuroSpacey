@@ -27,18 +27,17 @@ export default function Popover({ children, onClose }) {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <button
-          aria-label="Get Information"
-          ref={buttonRef}
-          $isVisible={isVisible}
-        >
-          +
-        </button>
+        <button aria-label="Neue Location hinzufügen">+</button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <StyledOverlay></StyledOverlay>
         <StyledContent>
-          {React.cloneElement(children, { onClose: () => setIsOpen(false) })}
+          {React.cloneElement(children, {
+            onClose: () => {
+              setIsOpen(false);
+              onClose?.();
+            },
+          })}
           <StyledClose aria-label="Close">x</StyledClose>
         </StyledContent>
       </Dialog.Portal>
