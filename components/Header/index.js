@@ -1,12 +1,28 @@
 import Popover from "../Popover";
 import styled from "styled-components";
 import LocationForm from "../LocationForm";
+import { useState } from "react";
 
 export default function Header({ onAddLocation }) {
+  const [formData, setFormData] = useState({
+    name: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
+    city: "",
+    category: "",
+    isQuietHour: false,
+    description: "",
+  });
+
   return (
     <StyledHeader>
       <Popover>
-        <LocationForm onAddLocation={onAddLocation} />
+        <LocationForm
+          onAddLocation={onAddLocation}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </Popover>
     </StyledHeader>
   );

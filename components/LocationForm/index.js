@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export default function LocationForm({ location, onAddLocation, onClose }) {
+export default function LocationForm({
+  location,
+  onAddLocation,
+  onClose,
+  formData,
+  setFormData,
+}) {
   const [error, setError] = useState(null);
 
   async function handleSubmit(event) {
@@ -23,7 +29,10 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
             type="text"
             id="name"
             name="name"
-            defaultValue={location?.name}
+            value={formData.name}
+            onChange={(event) =>
+              setFormData({ ...formData, name: event.target.value })
+            }
             required
           />
         </div>
@@ -34,7 +43,10 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
             type="text"
             id="street"
             name="street"
-            defaultValue={location?.address?.street}
+            value={formData.street}
+            onChange={(event) =>
+              setFormData({ ...formData, street: event.target.value })
+            }
             required
             placeholder="Straße"
           />
@@ -43,7 +55,10 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
             type="text"
             id="houseNumber"
             name="houseNumber"
-            defaultValue={location?.address?.houseNumber}
+            value={formData.houseNumber}
+            onChange={(event) =>
+              setFormData({ ...formData, houseNumber: event.target.value })
+            }
             required
             placeholder="Hausnummer"
           />
@@ -52,7 +67,10 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
             type="text"
             id="zipCode"
             name="zipCode"
-            defaultValue={location?.address?.zipCode}
+            value={formData.zipCode}
+            onChange={(event) =>
+              setFormData({ ...formData, zipCode: event.target.value })
+            }
             required
             placeholder="Postleitzahl"
           />
@@ -61,14 +79,24 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
             type="text"
             id="city"
             name="city"
-            defaultValue={location?.address?.city}
+            value={formData.city}
+            onChange={(event) =>
+              setFormData({ ...formData, city: event.target.value })
+            }
             required
             placeholder="Stadt"
           />
         </fieldset>
         <div>
           <label>Kategorie: </label>
-          <select id="category" name="category" required>
+          <select
+            id="category"
+            name="category"
+            onChange={(event) =>
+              setFormData({ ...formData, category: event.target.value })
+            }
+            required
+          >
             <option value="">Bitte wähle...</option>
             <option value="Einkaufen">Einkaufen</option>
             <option value="Dienstleistung">Dienstleistung</option>
@@ -79,7 +107,13 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
           </select>
         </div>
         <label>
-          <input type="checkbox" name="isQuietHour" />
+          <input
+            type="checkbox"
+            name="isQuietHour"
+            onChange={(event) =>
+              setFormData({ ...formData, isQuietHour: event.target.checked })
+            }
+          />
           Stille Stunde
         </label>
         <div>
@@ -87,7 +121,10 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
           <textarea
             id="description"
             name="description"
-            defaultValue={location?.description}
+            value={formData.description}
+            onChange={(event) =>
+              setFormData({ ...formData, description: event.target.value })
+            }
             required
             size={300}
             cols={45}
@@ -98,7 +135,22 @@ export default function LocationForm({ location, onAddLocation, onClose }) {
         <button type="submit" aria-label="Eintrag hinzufügen">
           Eintrag hinzufügen
         </button>
-        <button type="reset" aria-label="Felder leeren">
+        <button
+          type="button"
+          aria-label="Felder leeren"
+          onClick={() =>
+            setFormData({
+              name: "",
+              street: "",
+              houseNumber: "",
+              zipCode: "",
+              city: "",
+              category: "",
+              isQuietHour: false,
+              description: "",
+            })
+          }
+        >
           Felder leeren
         </button>
       </form>
