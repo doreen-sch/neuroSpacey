@@ -1,10 +1,12 @@
+import React from "react";
 import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 
-export default function Popover({ children }) {
+export default function Popover({ children, onClose }) {
   const buttonRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -23,7 +25,7 @@ export default function Popover({ children }) {
   }, []);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <button
           aria-label="Get Information"
@@ -36,7 +38,7 @@ export default function Popover({ children }) {
       <Dialog.Portal>
         <StyledOverlay></StyledOverlay>
         <StyledContent>
-          {children}
+          {React.cloneElement(children, { onClose: () => setIsOpen(false) })}
           <StyledClose aria-label="Close">x</StyledClose>
         </StyledContent>
       </Dialog.Portal>

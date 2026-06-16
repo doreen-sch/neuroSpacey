@@ -1,7 +1,21 @@
-export default function LocationForm({ location, onAddLocation }) {
+import { useState } from "react";
+
+export default function LocationForm({ location, onAddLocation, onClose }) {
+  const [error, setError] = useState(null);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (event.target.checkValidity()) {
+      await onAddLocation(event);
+      onClose();
+    } else {
+      setError("Bitte fülle alle Felder aus.");
+    }
+  }
+
   return (
     <>
-      <form aria-labelledby="form-title" onSubmit={onAddLocation}>
+      <form aria-labelledby="form-title" onSubmit={handleSubmit} noValidate>
         <h2 id="form-title">Neuen Ort hinzufügen</h2>
         <div>
           <label>Name: </label>
@@ -80,6 +94,7 @@ export default function LocationForm({ location, onAddLocation }) {
             rows={10}
           />
         </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit" aria-label="Eintrag hinzufügen">
           Eintrag hinzufügen
         </button>
