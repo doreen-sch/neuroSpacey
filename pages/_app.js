@@ -1,5 +1,6 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
+import { Toaster } from "react-hot-toast";
 
 const fetcher = async (url) => {
   const result = await fetch(url);
@@ -19,7 +20,10 @@ export default function App({ Component, pageProps }) {
   return (
     <SWRConfig value={{ fetcher }}>
       <GlobalStyle />
-      <Component {...pageProps} />
+      <Toaster />
+      <main>
+        <Component {...pageProps} />
+      </main>
     </SWRConfig>
   );
 }

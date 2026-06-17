@@ -28,5 +28,5 @@ const StyledList = styled.ul`
 
 const StyledListItem = styled.li`
   flex: 1 1 300px;
-  padding: 1rem 0.5rem 1rem 0.5rem;
+  padding: 2rem 0.5rem 1rem 0.5rem;
 `;

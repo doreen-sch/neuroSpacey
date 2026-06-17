@@ -19,6 +19,7 @@ const locationSchema = new Schema(
       height: { type: Number },
     },
     isApproved: { type: Boolean },
+    isQuietHour: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

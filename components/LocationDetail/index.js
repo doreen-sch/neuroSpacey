@@ -40,6 +40,7 @@ const DetailsPage = styled.div`
     width: 60%;
   }
   align-items: center;
+  margin-top: 2rem;
 `;
 
 const InfoCard = styled.div`
