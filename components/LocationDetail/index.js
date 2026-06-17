@@ -3,7 +3,12 @@ import Popover from "../Popover";
 import LocationForm from "../LocationForm";
 import styled from "styled-components";
 
-export default function LocationDetails({ location, onEditLocation }) {
+export default function LocationDetails({
+  location,
+  onEditLocation,
+  formData,
+  setFormData,
+}) {
   const { name, address, description, category, image } = location;
 
   return (
@@ -22,16 +27,14 @@ export default function LocationDetails({ location, onEditLocation }) {
         <DetailsCardText>
           <strong>Kategorie:</strong> {category}
         </DetailsCardText>
-        <Popover trigger={"Details bearbeiten"}>
-          <LocationForm>
-            <button
-              type="button"
-              aria-label="Location bearbeiten"
-              onClick={onEditLocation}
-            >
-              Details bearbeiten
-            </button>
-          </LocationForm>
+        <Popover trigger={<button type="button">Details bearbeiten</button>}>
+          <LocationForm
+            onAddLocation={onEditLocation}
+            formData={formData}
+            setFormData={setFormData}
+            location={location}
+            isEditMode={true}
+          />
         </Popover>
       </InfoCard>
       <ImageGallery>

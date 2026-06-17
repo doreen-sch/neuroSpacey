@@ -5,6 +5,7 @@ export default function LocationForm({
   onClose,
   formData,
   setFormData,
+  isEditMode,
 }) {
   const [error, setError] = useState(null);
 
@@ -91,6 +92,7 @@ export default function LocationForm({
           <select
             id="category"
             name="category"
+            value={formData.category}
             onChange={(event) =>
               setFormData({ ...formData, category: event.target.value })
             }
@@ -109,6 +111,7 @@ export default function LocationForm({
           <input
             type="checkbox"
             name="isQuietHour"
+            checked={formData.isQuietHour}
             onChange={(event) =>
               setFormData({ ...formData, isQuietHour: event.target.checked })
             }
@@ -131,26 +134,33 @@ export default function LocationForm({
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" aria-label="Eintrag hinzufügen">
-          Eintrag hinzufügen
+        <button
+          type="submit"
+          aria-label={
+            isEditMode ? "Änderungen einreichen" : "Eintrag hinzufügen"
+          }
+        >
+          {isEditMode ? "Änderungen einreichen" : "Eintrag hinzufügen"}
         </button>
         <button
           type="button"
-          aria-label="Felder leeren"
-          onClick={() =>
-            setFormData({
-              name: "",
-              street: "",
-              houseNumber: "",
-              zipCode: "",
-              city: "",
-              category: "",
-              isQuietHour: false,
-              description: "",
-            })
-          }
+          aria-label={isEditMode ? "Abbrechen" : "Eintrag hinzufügen"}
+          onClick={() => {
+            isEditMode
+              ? onClose()
+              : setFormData({
+                  name: "",
+                  street: "",
+                  houseNumber: "",
+                  zipCode: "",
+                  city: "",
+                  category: "",
+                  isQuietHour: false,
+                  description: "",
+                });
+          }}
         >
-          Felder leeren
+          {isEditMode ? "Abbrechen" : "Eintrag hinzufügen"}
         </button>
       </form>
     </>

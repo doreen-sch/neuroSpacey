@@ -8,7 +8,7 @@ export default function Popover({ children, onClose, trigger }) {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <button aria-label="Neue Location hinzufügen">{trigger}</button>
+        {trigger || <button aria-label="Neue Location hinzufügen">+</button>}
       </Dialog.Trigger>
       <Dialog.Portal>
         <StyledOverlay></StyledOverlay>

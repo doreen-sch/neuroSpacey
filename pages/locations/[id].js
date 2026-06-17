@@ -11,8 +11,15 @@ export default function LocationDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: location, isLoading, error } = useSWR(`/api/locations/${id}`);
+  const {
+    data: location,
+    isLoading,
+    error,
+    mutate: mutateLocation,
+  } = useSWR(`/api/locations/${id}`);
+
   const { mutate } = useSWR("/api/locations");
+
   const [formData, setFormData] = useState({
     name: location?.name || "",
     street: location?.street || "",
@@ -22,6 +29,17 @@ export default function LocationDetailPage() {
     category: location?.category || "",
     isQuietHour: location?.isQuietHour || false,
     description: location?.description || "",
+  });
+
+  const [addFormData, setAddFormData] = useState({
+    name: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
+    city: "",
+    category: "",
+    isQuietHour: false,
+    description: "",
   });
 
   useEffect(() => {
@@ -92,7 +110,7 @@ export default function LocationDetailPage() {
       });
 
       if (uploadResponse.ok) {
-        mutate();
+        mutateLocation();
         toast.success(
           "Das Update deiner Location wurde zur Prüfung eingereicht.",
           {
@@ -120,13 +138,18 @@ export default function LocationDetailPage() {
     <StyledPageWrapper>
       <Header
         onAddLocation={onAddLocation}
-        formData={formData}
-        setFormData={setFormData}
+        formData={addFormData}
+        setFormData={setAddFormData}
       />
       <StyledLinkContainer>
         <StyledLink href={`../`}>⬅️ Zurück zur Listenansicht</StyledLink>
       </StyledLinkContainer>
-      <LocationDetails location={location} onEditLocation={onEditLocation} />
+      <LocationDetails
+        location={location}
+        onEditLocation={onEditLocation}
+        formData={formData}
+        setFormData={setFormData}
+      />
     </StyledPageWrapper>
   );
 }
