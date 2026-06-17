@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 
-export default function Popover({ children, onClose }) {
+export default function Popover({ children, onClose, trigger }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <button aria-label="Neue Location hinzufügen">+</button>
+        <button aria-label="Neue Location hinzufügen">{trigger}</button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <StyledOverlay></StyledOverlay>

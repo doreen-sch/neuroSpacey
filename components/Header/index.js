@@ -5,7 +5,7 @@ import LocationForm from "../LocationForm";
 export default function Header({ onAddLocation, formData, setFormData }) {
   return (
     <StyledHeader>
-      <Popover>
+      <Popover trigger={"+"}>
         <LocationForm
           onAddLocation={onAddLocation}
           formData={formData}

@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Popover from "../Popover";
+import LocationForm from "../LocationForm";
 import styled from "styled-components";
 
-export default function LocationDetails({ location }) {
+export default function LocationDetails({ location, onEditLocation }) {
   const { name, address, description, category, image } = location;
 
   return (
@@ -20,6 +22,17 @@ export default function LocationDetails({ location }) {
         <DetailsCardText>
           <strong>Kategorie:</strong> {category}
         </DetailsCardText>
+        <Popover trigger={"Details bearbeiten"}>
+          <LocationForm>
+            <button
+              type="button"
+              aria-label="Location bearbeiten"
+              onClick={onEditLocation}
+            >
+              Details bearbeiten
+            </button>
+          </LocationForm>
+        </Popover>
       </InfoCard>
       <ImageGallery>
         {image?.url && (
