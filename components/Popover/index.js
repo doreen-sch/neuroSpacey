@@ -1,28 +1,9 @@
-import React from "react";
-import { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 
 export default function Popover({ children, onClose }) {
-  const buttonRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { rootMargin: "-16px" }
-    );
-    if (buttonRef.current) {
-      observer.observe(buttonRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
