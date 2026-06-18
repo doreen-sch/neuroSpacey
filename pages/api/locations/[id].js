@@ -23,7 +23,10 @@ export default async function handler(request, response) {
     }
 
     if (request.method === "DELETE") {
-      await Location.findByIdAndDelete(id);
+      const deletedLocation = await Location.findByIdAndDelete(id);
+      if (!deletedLocation) {
+        return response.status(404).json({ status: "Location not found." });
+      }
       return response
         .status(200)
         .json({ status: "Successfully deleted Location." });

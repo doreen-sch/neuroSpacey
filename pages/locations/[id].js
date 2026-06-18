@@ -142,8 +142,11 @@ export default function LocationDetailPage() {
         method: "DELETE",
       });
       if (response.ok) {
+        mutate();
         router.push("/");
-        toast.success("Die Löschung der Location wurde erfolgreich beantragt.");
+        toast.success(
+          "Dein Löschantrag wurde eingereicht und wird redaktionell geprüft."
+        );
       } else {
         toast.error(
           "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal."
@@ -151,8 +154,7 @@ export default function LocationDetailPage() {
       }
     } catch {
       toast.error(
-        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
-        { id: "uploading" }
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal."
       );
     }
   }
