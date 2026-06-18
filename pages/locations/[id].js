@@ -136,6 +136,27 @@ export default function LocationDetailPage() {
     }
   }
 
+  async function handleDeleteLocation() {
+    try {
+      const response = await fetch(`/api/locations/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        router.push("/");
+        toast.success("Die Löschung der Location wurde erfolgreich beantragt.");
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal."
+        );
+      }
+    } catch {
+      toast.error(
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+        { id: "uploading" }
+      );
+    }
+  }
+
   if (isLoading) {
     return <h1>Is Loading…</h1>;
   }
@@ -157,6 +178,7 @@ export default function LocationDetailPage() {
       <LocationDetails
         location={location}
         handleEditLocation={handleEditLocation}
+        handleDeleteLocation={handleDeleteLocation}
         formData={formData}
         setFormData={setFormData}
       />
