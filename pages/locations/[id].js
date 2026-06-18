@@ -89,7 +89,7 @@ export default function LocationDetailPage() {
       }
     } catch {
       toast.error(
-        "Ups, da ist was schiefgelaufen. Bitte versuche es noch einmal.",
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
         { id: "uploading" }
       );
     }
@@ -130,7 +130,7 @@ export default function LocationDetailPage() {
       }
     } catch {
       toast.error(
-        "Ups, da ist was schiefgelaufen. Bitte versuche es noch einmal.",
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
         { id: "uploading" }
       );
     }
