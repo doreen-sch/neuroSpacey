@@ -57,7 +57,7 @@ export default function LocationDetailPage() {
     }
   }, [location]);
 
-  async function onAddLocation(event) {
+  async function handleAddLocation(event) {
     event.preventDefault();
     const locationFormData = new FormData(event.target);
     const locationData = Object.fromEntries(locationFormData);
@@ -81,6 +81,11 @@ export default function LocationDetailPage() {
         toast.success("Deine Location wurde zur Prüfung eingereicht.", {
           id: "uploading",
         });
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
       }
     } catch {
       toast.error(
@@ -90,7 +95,7 @@ export default function LocationDetailPage() {
     }
   }
 
-  async function onEditLocation(event) {
+  async function handleEditLocation(event) {
     event.preventDefault();
     const locationFormData = new FormData(event.target);
     const locationData = Object.fromEntries(locationFormData);
@@ -117,6 +122,11 @@ export default function LocationDetailPage() {
             id: "uploading",
           }
         );
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
       }
     } catch {
       toast.error(
@@ -137,7 +147,7 @@ export default function LocationDetailPage() {
   return (
     <StyledPageWrapper>
       <Header
-        onAddLocation={onAddLocation}
+        handleAddLocation={handleAddLocation}
         formData={addFormData}
         setFormData={setAddFormData}
       />
@@ -146,7 +156,7 @@ export default function LocationDetailPage() {
       </StyledLinkContainer>
       <LocationDetails
         location={location}
-        onEditLocation={onEditLocation}
+        handleEditLocation={handleEditLocation}
         formData={formData}
         setFormData={setFormData}
       />

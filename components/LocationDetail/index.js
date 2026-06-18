@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 export default function LocationDetails({
   location,
-  onEditLocation,
+  handleEditLocation,
   formData,
   setFormData,
 }) {
@@ -32,7 +32,7 @@ export default function LocationDetails({
           isEditMode={true}
         >
           <LocationForm
-            onAddLocation={onEditLocation}
+            onSubmit={handleEditLocation}
             formData={formData}
             setFormData={setFormData}
             location={location}

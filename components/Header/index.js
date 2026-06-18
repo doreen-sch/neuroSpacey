@@ -2,12 +2,12 @@ import Popover from "../Popover";
 import styled from "styled-components";
 import LocationForm from "../LocationForm";
 
-export default function Header({ onAddLocation, formData, setFormData }) {
+export default function Header({ handleAddLocation, formData, setFormData }) {
   return (
     <StyledHeader>
       <Popover>
         <LocationForm
-          onAddLocation={onAddLocation}
+          onSubmit={handleAddLocation}
           formData={formData}
           setFormData={setFormData}
         />

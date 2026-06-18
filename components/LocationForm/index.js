@@ -1,18 +1,19 @@
 import { useState } from "react";
 
 export default function LocationForm({
-  onAddLocation,
+  onSubmit,
   onClose,
   formData,
   setFormData,
   isEditMode,
 }) {
   const [error, setError] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
     if (event.target.checkValidity()) {
-      await onAddLocation(event);
+      await onSubmit(event);
       onClose();
     } else {
       setError("Bitte fülle alle Felder aus.");
@@ -22,7 +23,10 @@ export default function LocationForm({
   return (
     <>
       <form aria-labelledby="form-title" onSubmit={handleSubmit} noValidate>
-        <h2 id="form-title">Neuen Ort hinzufügen</h2>
+        <h2 id="form-title">
+          {" "}
+          {isEditMode ? "Ort bearbeiten" : "Neuen Ort hinzufügen"}
+        </h2>
         <div>
           <label>Name: </label>
           <input
@@ -32,7 +36,7 @@ export default function LocationForm({
             value={formData.name}
             onChange={(event) => {
               setFormData({ ...formData, name: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
           />
@@ -47,7 +51,7 @@ export default function LocationForm({
             value={formData.street}
             onChange={(event) => {
               setFormData({ ...formData, street: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
             placeholder="Straße"
@@ -60,7 +64,7 @@ export default function LocationForm({
             value={formData.houseNumber}
             onChange={(event) => {
               setFormData({ ...formData, houseNumber: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
             placeholder="Hausnummer"
@@ -73,7 +77,7 @@ export default function LocationForm({
             value={formData.zipCode}
             onChange={(event) => {
               setFormData({ ...formData, zipCode: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
             placeholder="Postleitzahl"
@@ -86,7 +90,7 @@ export default function LocationForm({
             value={formData.city}
             onChange={(event) => {
               setFormData({ ...formData, city: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
             placeholder="Stadt"
@@ -100,7 +104,7 @@ export default function LocationForm({
             value={formData.category}
             onChange={(event) => {
               setFormData({ ...formData, category: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
           >
@@ -120,7 +124,7 @@ export default function LocationForm({
             checked={formData.isQuietHour}
             onChange={(event) => {
               setFormData({ ...formData, isQuietHour: event.target.checked });
-              setCancel(true);
+              setHasChanges(true);
             }}
           />
           Stille Stunde
@@ -133,7 +137,7 @@ export default function LocationForm({
             value={formData.description}
             onChange={(event) => {
               setFormData({ ...formData, description: event.target.value });
-              setCancel(true);
+              setHasChanges(true);
             }}
             required
             size={300}
