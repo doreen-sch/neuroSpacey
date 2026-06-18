@@ -27,7 +27,10 @@ export default function LocationDetails({
         <DetailsCardText>
           <strong>Kategorie:</strong> {category}
         </DetailsCardText>
-        <Popover trigger={<button type="button">Details bearbeiten</button>}>
+        <Popover
+          trigger={<button type="button">Details bearbeiten</button>}
+          isEditMode={true}
+        >
           <LocationForm
             onAddLocation={onEditLocation}
             formData={formData}

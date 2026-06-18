@@ -30,9 +30,10 @@ export default function LocationForm({
             id="name"
             name="name"
             value={formData.name}
-            onChange={(event) =>
-              setFormData({ ...formData, name: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, name: event.target.value });
+              setCancel(true);
+            }}
             required
           />
         </div>
@@ -44,9 +45,10 @@ export default function LocationForm({
             id="street"
             name="street"
             value={formData.street}
-            onChange={(event) =>
-              setFormData({ ...formData, street: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, street: event.target.value });
+              setCancel(true);
+            }}
             required
             placeholder="Straße"
           />
@@ -56,9 +58,10 @@ export default function LocationForm({
             id="houseNumber"
             name="houseNumber"
             value={formData.houseNumber}
-            onChange={(event) =>
-              setFormData({ ...formData, houseNumber: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, houseNumber: event.target.value });
+              setCancel(true);
+            }}
             required
             placeholder="Hausnummer"
           />
@@ -68,9 +71,10 @@ export default function LocationForm({
             id="zipCode"
             name="zipCode"
             value={formData.zipCode}
-            onChange={(event) =>
-              setFormData({ ...formData, zipCode: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, zipCode: event.target.value });
+              setCancel(true);
+            }}
             required
             placeholder="Postleitzahl"
           />
@@ -80,9 +84,10 @@ export default function LocationForm({
             id="city"
             name="city"
             value={formData.city}
-            onChange={(event) =>
-              setFormData({ ...formData, city: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, city: event.target.value });
+              setCancel(true);
+            }}
             required
             placeholder="Stadt"
           />
@@ -93,9 +98,10 @@ export default function LocationForm({
             id="category"
             name="category"
             value={formData.category}
-            onChange={(event) =>
-              setFormData({ ...formData, category: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, category: event.target.value });
+              setCancel(true);
+            }}
             required
           >
             <option value="">Bitte wähle...</option>
@@ -112,9 +118,10 @@ export default function LocationForm({
             type="checkbox"
             name="isQuietHour"
             checked={formData.isQuietHour}
-            onChange={(event) =>
-              setFormData({ ...formData, isQuietHour: event.target.checked })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, isQuietHour: event.target.checked });
+              setCancel(true);
+            }}
           />
           Stille Stunde
         </label>
@@ -124,9 +131,10 @@ export default function LocationForm({
             id="description"
             name="description"
             value={formData.description}
-            onChange={(event) =>
-              setFormData({ ...formData, description: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, description: event.target.value });
+              setCancel(true);
+            }}
             required
             size={300}
             cols={45}
@@ -144,23 +152,25 @@ export default function LocationForm({
         </button>
         <button
           type="button"
-          aria-label={isEditMode ? "Abbrechen" : "Eintrag hinzufügen"}
+          aria-label={isEditMode ? "Abbrechen" : "Felder leeren"}
           onClick={() => {
-            isEditMode
-              ? onClose()
-              : setFormData({
-                  name: "",
-                  street: "",
-                  houseNumber: "",
-                  zipCode: "",
-                  city: "",
-                  category: "",
-                  isQuietHour: false,
-                  description: "",
-                });
+            {
+              isEditMode
+                ? onClose()
+                : setFormData({
+                    name: "",
+                    street: "",
+                    houseNumber: "",
+                    zipCode: "",
+                    city: "",
+                    category: "",
+                    isQuietHour: false,
+                    description: "",
+                  });
+            }
           }}
         >
-          {isEditMode ? "Abbrechen" : "Eintrag hinzufügen"}
+          {isEditMode ? "Abbrechen" : "Felder leeren"}
         </button>
       </form>
     </>
