@@ -21,6 +21,16 @@ export default async function handler(request, response) {
         .status(200)
         .json({ status: "Successfully updated Location." });
     }
+
+    if (request.method === "DELETE") {
+      const deletedLocation = await Location.findByIdAndDelete(id);
+      if (!deletedLocation) {
+        return response.status(404).json({ status: "Location not found." });
+      }
+      return response
+        .status(200)
+        .json({ status: "Successfully deleted Location." });
+    }
   } catch (error) {
     console.error(error);
     return response.status(500).json({ status: "Internal Server Error." });

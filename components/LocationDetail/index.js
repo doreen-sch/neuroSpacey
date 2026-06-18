@@ -6,6 +6,7 @@ import styled from "styled-components";
 export default function LocationDetails({
   location,
   handleEditLocation,
+  handleDeleteLocation,
   formData,
   setFormData,
 }) {
@@ -45,6 +46,13 @@ export default function LocationDetails({
           <StyledImage src={image.url} alt={`Image of ${location.name}`} fill />
         )}
       </ImageGallery>
+      <button
+        type="button"
+        aria-label="Eintrag löschen"
+        onClick={handleDeleteLocation}
+      >
+        Eintrag löschen
+      </button>
     </DetailsPage>
   );
 }
