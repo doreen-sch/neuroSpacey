@@ -1,7 +1,14 @@
 import Image from "next/image";
+import Popover from "../Popover";
+import LocationForm from "../LocationForm";
 import styled from "styled-components";
 
-export default function LocationDetails({ location }) {
+export default function LocationDetails({
+  location,
+  handleEditLocation,
+  formData,
+  setFormData,
+}) {
   const { name, address, description, category, image } = location;
 
   return (
@@ -20,6 +27,18 @@ export default function LocationDetails({ location }) {
         <DetailsCardText>
           <strong>Kategorie:</strong> {category}
         </DetailsCardText>
+        <Popover
+          trigger={<button type="button">Details bearbeiten</button>}
+          isEditMode={true}
+        >
+          <LocationForm
+            onSubmit={handleEditLocation}
+            formData={formData}
+            setFormData={setFormData}
+            location={location}
+            isEditMode={true}
+          />
+        </Popover>
       </InfoCard>
       <ImageGallery>
         {image?.url && (

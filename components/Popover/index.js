@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
 
-export default function Popover({ children, onClose }) {
+export default function Popover({ children, onClose, trigger, isEditMode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <button aria-label="Neue Location hinzufügen">+</button>
+        {trigger || <button aria-label="Neue Location hinzufügen">+</button>}
       </Dialog.Trigger>
       <Dialog.Portal>
         <StyledOverlay></StyledOverlay>
-        <StyledContent>
+        <StyledContent onInteractOutside={(event) => event.preventDefault()}>
           {React.cloneElement(children, {
             onClose: () => {
               setIsOpen(false);
               onClose?.();
             },
           })}
-          <StyledClose aria-label="Close">x</StyledClose>
+          {!isEditMode && <StyledClose aria-label="Close">x</StyledClose>}
         </StyledContent>
       </Dialog.Portal>
     </Dialog.Root>

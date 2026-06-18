@@ -1,17 +1,19 @@
 import { useState } from "react";
 
 export default function LocationForm({
-  onAddLocation,
+  onSubmit,
   onClose,
   formData,
   setFormData,
+  isEditMode,
 }) {
   const [error, setError] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
     if (event.target.checkValidity()) {
-      await onAddLocation(event);
+      await onSubmit(event);
       onClose();
     } else {
       setError("Bitte fülle alle Felder aus.");
@@ -21,7 +23,10 @@ export default function LocationForm({
   return (
     <>
       <form aria-labelledby="form-title" onSubmit={handleSubmit} noValidate>
-        <h2 id="form-title">Neuen Ort hinzufügen</h2>
+        <h2 id="form-title">
+          {" "}
+          {isEditMode ? "Ort bearbeiten" : "Neuen Ort hinzufügen"}
+        </h2>
         <div>
           <label>Name: </label>
           <input
@@ -29,9 +34,10 @@ export default function LocationForm({
             id="name"
             name="name"
             value={formData.name}
-            onChange={(event) =>
-              setFormData({ ...formData, name: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, name: event.target.value });
+              setHasChanges(true);
+            }}
             required
           />
         </div>
@@ -43,9 +49,10 @@ export default function LocationForm({
             id="street"
             name="street"
             value={formData.street}
-            onChange={(event) =>
-              setFormData({ ...formData, street: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, street: event.target.value });
+              setHasChanges(true);
+            }}
             required
             placeholder="Straße"
           />
@@ -55,9 +62,10 @@ export default function LocationForm({
             id="houseNumber"
             name="houseNumber"
             value={formData.houseNumber}
-            onChange={(event) =>
-              setFormData({ ...formData, houseNumber: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, houseNumber: event.target.value });
+              setHasChanges(true);
+            }}
             required
             placeholder="Hausnummer"
           />
@@ -67,9 +75,10 @@ export default function LocationForm({
             id="zipCode"
             name="zipCode"
             value={formData.zipCode}
-            onChange={(event) =>
-              setFormData({ ...formData, zipCode: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, zipCode: event.target.value });
+              setHasChanges(true);
+            }}
             required
             placeholder="Postleitzahl"
           />
@@ -79,9 +88,10 @@ export default function LocationForm({
             id="city"
             name="city"
             value={formData.city}
-            onChange={(event) =>
-              setFormData({ ...formData, city: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, city: event.target.value });
+              setHasChanges(true);
+            }}
             required
             placeholder="Stadt"
           />
@@ -91,9 +101,11 @@ export default function LocationForm({
           <select
             id="category"
             name="category"
-            onChange={(event) =>
-              setFormData({ ...formData, category: event.target.value })
-            }
+            value={formData.category}
+            onChange={(event) => {
+              setFormData({ ...formData, category: event.target.value });
+              setHasChanges(true);
+            }}
             required
           >
             <option value="">Bitte wähle...</option>
@@ -109,9 +121,11 @@ export default function LocationForm({
           <input
             type="checkbox"
             name="isQuietHour"
-            onChange={(event) =>
-              setFormData({ ...formData, isQuietHour: event.target.checked })
-            }
+            checked={formData.isQuietHour}
+            onChange={(event) => {
+              setFormData({ ...formData, isQuietHour: event.target.checked });
+              setHasChanges(true);
+            }}
           />
           Stille Stunde
         </label>
@@ -121,9 +135,10 @@ export default function LocationForm({
             id="description"
             name="description"
             value={formData.description}
-            onChange={(event) =>
-              setFormData({ ...formData, description: event.target.value })
-            }
+            onChange={(event) => {
+              setFormData({ ...formData, description: event.target.value });
+              setHasChanges(true);
+            }}
             required
             size={300}
             cols={45}
@@ -131,26 +146,35 @@ export default function LocationForm({
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit" aria-label="Eintrag hinzufügen">
-          Eintrag hinzufügen
+        <button
+          type="submit"
+          aria-label={
+            isEditMode ? "Änderungen einreichen" : "Eintrag hinzufügen"
+          }
+        >
+          {isEditMode ? "Änderungen einreichen" : "Eintrag hinzufügen"}
         </button>
         <button
           type="button"
-          aria-label="Felder leeren"
-          onClick={() =>
-            setFormData({
-              name: "",
-              street: "",
-              houseNumber: "",
-              zipCode: "",
-              city: "",
-              category: "",
-              isQuietHour: false,
-              description: "",
-            })
-          }
+          aria-label={isEditMode ? "Abbrechen" : "Felder leeren"}
+          onClick={() => {
+            {
+              isEditMode
+                ? onClose()
+                : setFormData({
+                    name: "",
+                    street: "",
+                    houseNumber: "",
+                    zipCode: "",
+                    city: "",
+                    category: "",
+                    isQuietHour: false,
+                    description: "",
+                  });
+            }
+          }}
         >
-          Felder leeren
+          {isEditMode ? "Abbrechen" : "Felder leeren"}
         </button>
       </form>
     </>

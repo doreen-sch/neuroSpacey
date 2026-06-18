@@ -30,7 +30,7 @@ export default function HomePage() {
 
   if (isLoading) return <p>Loading...</p>;
 
-  async function onAddLocation(event) {
+  async function handleAddLocation(event) {
     event.preventDefault();
     const locationFormData = new FormData(event.target);
     const locationData = Object.fromEntries(locationFormData);
@@ -66,7 +66,7 @@ export default function HomePage() {
   return (
     <StyledPageWrapper>
       <Header
-        onAddLocation={onAddLocation}
+        handleAddLocation={handleAddLocation}
         formData={formData}
         setFormData={setFormData}
       />

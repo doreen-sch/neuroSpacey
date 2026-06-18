@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import LocationDetails from "@/components/LocationDetail";
 import useSWR from "swr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -11,9 +11,27 @@ export default function LocationDetailPage() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data: location, isLoading, error } = useSWR(`/api/locations/${id}`);
+  const {
+    data: location,
+    isLoading,
+    error,
+    mutate: mutateLocation,
+  } = useSWR(`/api/locations/${id}`);
+
   const { mutate } = useSWR("/api/locations");
+
   const [formData, setFormData] = useState({
+    name: location?.name || "",
+    street: location?.street || "",
+    houseNumber: location?.houseNumber || "",
+    zipCode: location?.zipCode || "",
+    city: location?.city || "",
+    category: location?.category || "",
+    isQuietHour: location?.isQuietHour || false,
+    description: location?.description || "",
+  });
+
+  const [addFormData, setAddFormData] = useState({
     name: "",
     street: "",
     houseNumber: "",
@@ -24,7 +42,22 @@ export default function LocationDetailPage() {
     description: "",
   });
 
-  async function onAddLocation(event) {
+  useEffect(() => {
+    if (location) {
+      setFormData({
+        name: location.name,
+        street: location.address.street,
+        houseNumber: location.address.houseNumber,
+        zipCode: location.address.zipCode,
+        city: location.address.city,
+        category: location.category,
+        isQuietHour: location.isQuietHour,
+        description: location.description,
+      });
+    }
+  }, [location]);
+
+  async function handleAddLocation(event) {
     event.preventDefault();
     const locationFormData = new FormData(event.target);
     const locationData = Object.fromEntries(locationFormData);
@@ -37,7 +70,7 @@ export default function LocationDetailPage() {
     };
 
     try {
-      const uploadResponse = await fetch("/api/locations", {
+      const uploadResponse = await fetch(`/api/locations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(locationData),
@@ -45,13 +78,59 @@ export default function LocationDetailPage() {
 
       if (uploadResponse.ok) {
         mutate();
-        toast.success("Deine Location wurde zur Prüfung eingereicht", {
+        toast.success("Deine Location wurde zur Prüfung eingereicht.", {
           id: "uploading",
         });
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
       }
     } catch {
       toast.error(
-        "Ups, da ist was schiefgelaufen. Bitte versuche es noch einmal.",
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+        { id: "uploading" }
+      );
+    }
+  }
+
+  async function handleEditLocation(event) {
+    event.preventDefault();
+    const locationFormData = new FormData(event.target);
+    const locationData = Object.fromEntries(locationFormData);
+    locationData.isQuietHour = locationData.isQuietHour === "on";
+    locationData.address = {
+      street: locationData.street,
+      houseNumber: locationData.houseNumber,
+      zipCode: locationData.zipCode,
+      city: locationData.city,
+    };
+
+    try {
+      const uploadResponse = await fetch(`/api/locations/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(locationData),
+      });
+
+      if (uploadResponse.ok) {
+        mutateLocation();
+        toast.success(
+          "Das Update deiner Location wurde zur Prüfung eingereicht.",
+          {
+            id: "uploading",
+          }
+        );
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
+      }
+    } catch {
+      toast.error(
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
         { id: "uploading" }
       );
     }
@@ -68,14 +147,19 @@ export default function LocationDetailPage() {
   return (
     <StyledPageWrapper>
       <Header
-        onAddLocation={onAddLocation}
-        formData={formData}
-        setFormData={setFormData}
+        handleAddLocation={handleAddLocation}
+        formData={addFormData}
+        setFormData={setAddFormData}
       />
       <StyledLinkContainer>
         <StyledLink href={`../`}>⬅️ Zurück zur Listenansicht</StyledLink>
       </StyledLinkContainer>
-      <LocationDetails location={location} />
+      <LocationDetails
+        location={location}
+        handleEditLocation={handleEditLocation}
+        formData={formData}
+        setFormData={setFormData}
+      />
     </StyledPageWrapper>
   );
 }
