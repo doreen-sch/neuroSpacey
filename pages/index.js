@@ -105,7 +105,7 @@ const StyledListAndMapButton = styled.button`
   margin: 4rem 0 0 2.5rem;
   position: fixed;
   right: 2.5rem;
-  z-index: 10;
+  z-index: 999;
   background: white;
   border-radius: 5px;
   padding-top: 4px;

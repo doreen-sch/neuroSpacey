@@ -25,12 +25,16 @@ export default function MapView() {
 }
 
 const StyledMapWrapper = styled.div`
-  margin-top: 7rem;
-  height: 100vh;
+  justify-content: center;
+  position: fixed;
   width: 100%;
-  @media (min-width: 768px) {
-    width: 60%;
-    margin: 0 auto;
-  }
+  top: 4.5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 5;
+  @media (min-width: 768px) {
+    width: 80%;
+    margin: auto auto 2rem auto;
+  }
 `;

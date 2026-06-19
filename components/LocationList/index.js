@@ -23,6 +23,7 @@ const StyledList = styled.ul`
   padding: 7rem 2rem 2rem 2rem;
   display: flex;
   flex-wrap: wrap;
+  gap: 2rem;
 `;
 
 const StyledListItem = styled.li`
