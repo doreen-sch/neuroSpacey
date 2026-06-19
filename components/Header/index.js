@@ -22,5 +22,5 @@ const StyledHeader = styled.div`
   width: 100%;
   padding: 0 2.5rem;
   position: fixed;
-  z-index: 1000;
+  z-index: 2000;
 `;

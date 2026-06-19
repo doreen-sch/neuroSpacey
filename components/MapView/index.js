@@ -3,6 +3,13 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export default function MapView({ locations }) {
+  if (!locations)
+    return (
+      <p>
+        Fehler beim Laden der Locations. <Link href="/">zurück zur Liste</Link>
+      </p>
+    );
+
   const validLocations = locations.filter(
     (location) =>
       location.coordinates.lat !== 0 && location.coordinates.lng !== 0
@@ -10,13 +17,6 @@ export default function MapView({ locations }) {
 
   if (validLocations.length === 0)
     return <p>Noch keine Locations verfügbar.</p>;
-
-  if (!locations)
-    return (
-      <p>
-        Fehler beim Laden der Locations. <Link href="/">zurück zur Liste</Link>
-      </p>
-    );
 
   return (
     <StyledMapWrapper>
