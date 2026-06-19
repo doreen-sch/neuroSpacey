@@ -20,13 +20,12 @@ const StyledList = styled.ul`
   justify-content: center;
   list-style: none;
   width: 100%;
-  padding: 0 2rem 2rem 2rem;
+  padding: 7rem 2rem 2rem 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
 `;
 
 const StyledListItem = styled.li`
   flex: 1 1 300px;
-  padding: 2rem 0.5rem 1rem 0.5rem;
+  padding: 0 0 2rem 0;
 `;

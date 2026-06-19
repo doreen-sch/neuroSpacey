@@ -1,6 +1,7 @@
 import GlobalStyle from "../styles";
 import { SWRConfig } from "swr";
 import { Toaster } from "react-hot-toast";
+import "leaflet/dist/leaflet.css";
 
 const fetcher = async (url) => {
   const result = await fetch(url);
