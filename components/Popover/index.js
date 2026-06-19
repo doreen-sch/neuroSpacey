@@ -38,7 +38,7 @@ const StyledOverlay = styled(Dialog.Overlay)`
       opacity: 1;
     }
   }
-
+  z-index: 1000;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 `;
 
@@ -53,6 +53,7 @@ const StyledContent = styled(Dialog.Content)`
   overflow-y: auto;
   border-radius: 10px;
   padding: 2rem;
+  z-index: 1000;
 `;
 
 const StyledClose = styled(Dialog.Close)`
