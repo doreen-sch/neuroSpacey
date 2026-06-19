@@ -92,7 +92,11 @@ export default function HomePage() {
           <ListIcon width={24} height={24} />
         )}
       </StyledListAndMapButton>
-      {view === "list" ? <LocationList locations={locations} /> : <MapView />}
+      {view === "list" ? (
+        <LocationList locations={locations} />
+      ) : (
+        <MapView locations={locations} />
+      )}
     </StyledPageWrapper>
   );
 }

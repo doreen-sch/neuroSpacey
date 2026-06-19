@@ -1,24 +1,53 @@
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import styled from "styled-components";
+import Link from "next/link";
 
-export default function MapView() {
+export default function MapView({ locations }) {
+  const validLocations = locations.filter(
+    (location) =>
+      location.coordinates.lat !== 0 && location.coordinates.lng !== 0
+  );
+
+  if (validLocations.length === 0)
+    return <p>Noch keine Locations verfügbar.</p>;
+
+  if (!locations)
+    return (
+      <p>
+        Fehler beim Laden der Locations. <Link href="/">zurück zur Liste</Link>
+      </p>
+    );
+
   return (
     <StyledMapWrapper>
       <MapContainer
         center={[51.1657, 10.4515]}
         zoom={7}
-        scrollWheelZoom={false}
+        scrollWheelZoom={true}
+        touchZoom={true}
         style={{ height: "100%", width: "100%" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tiles-eu.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         />
-        <Marker position={[51.1657, 10.4515]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        {validLocations.map((location) => {
+          const { name, coordinates, category, _id } = location;
+
+          return (
+            <Marker
+              key={location._id}
+              position={[coordinates.lat, coordinates.lng]}
+            >
+              <Popup>
+                <div>
+                  {name} <br /> {category}
+                </div>
+                <Link href={`/locations/${_id}`}>mehr Infos</Link>
+              </Popup>
+            </Marker>
+          );
+        })}
       </MapContainer>
     </StyledMapWrapper>
   );
