@@ -15,6 +15,7 @@ export default async function handler(request, response) {
     }
     if (request.method === "PUT") {
       const updatedLocation = request.body;
+      updatedLocation.isApproved = false;
       await Location.findByIdAndUpdate(id, updatedLocation);
 
       return response

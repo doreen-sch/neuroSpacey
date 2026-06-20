@@ -12,7 +12,7 @@ export default async function handler(request, response) {
     }
     if (request.method === "POST") {
       const locationData = request.body;
-      locationData.isApproved = true;
+      locationData.isApproved = false;
       await Location.create(locationData);
       return response.status(201).json({ status: "Location created." });
     }
