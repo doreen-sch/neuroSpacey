@@ -21,7 +21,7 @@ const StyledList = styled.ul`
   box-sizing: border-box;
   list-style: none;
   width: 100%;
-  padding: 7rem 2rem 2rem 2rem;
+  padding: 10rem 2rem 2rem 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;

@@ -9,7 +9,9 @@ export default createGlobalStyle`
 /* Background #FDF5EE — sehr helles warmes Creme */
 --color-background-50: #fdf5ee;
 --color-background-100: #fbe9d9;
+--color-background-100-rgb: 251, 233, 217;
 --color-background-200: #f5d0b3;
+--color-background-200-rgb: 245, 208, 179;
 --color-background-300: #efb082;
 --color-background-400: #e78750;
 --color-background-500: #e1672e;
@@ -190,9 +192,19 @@ export default createGlobalStyle`
     height: 100%;
 }
 
-html {
-  overflow: hidden;
+body {
+  background: linear-gradient(
+   180deg,
+        
+      #fed6e0 40%,
+    #fbeed6 60%,
+    #94eaed 90% 
+  );
+  background-attachment: fixed;
+  min-height: 100vh;
 }
+
+
 
   h1, h2, h3 {
   font-family: var(--font-display), serif;

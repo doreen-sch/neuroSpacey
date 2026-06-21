@@ -2,6 +2,7 @@ import useSWR from "swr";
 import { useState } from "react";
 import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
+import FadeOverlay from "@/components/FadeOverlay";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import dynamic from "next/dynamic";
@@ -77,6 +78,7 @@ export default function HomePage() {
         formData={formData}
         setFormData={setFormData}
       />
+      <FadeOverlay />
       <StyledListAndMapButton
         type="button"
         onClick={() => setView(view === "list" ? "map" : "list")}
@@ -101,12 +103,8 @@ export default function HomePage() {
   );
 }
 
-// const StyledPageWrapper = styled.div`
-//   padding-top: 0;
-// `;
-
 const StyledListAndMapButton = styled.button`
-  margin: 4rem 0 0 2.5rem;
+  margin: 6rem 0 0 2.5rem;
   position: fixed;
   right: 2.5rem;
   z-index: 999;

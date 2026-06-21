@@ -5,16 +5,27 @@ import styled from "styled-components";
 export default function LocationCard({ location }) {
   const { image, name, category } = location;
 
+  const categoryImages = {
+    Einkaufen: "/images/Einkaufen_hell.png",
+    Dienstleistung: "/images/Dienstleistungen_hell.png",
+    Natur: "",
+    "Café & Restaurant": "/images/Cafe&Restaurant_hell.png",
+    Kultur: "",
+    Veranstaltung: "",
+  };
+
+  const imageSrc = categoryImages[category];
+
   return (
     <StyledLink href={`/locations/${location._id}`}>
       <Card>
-        <LocationName>{name}</LocationName>
-        <Category>Kategorie: {category}</Category>
-        {image?.url && (
+        {imageSrc && (
           <ImageContainer>
-            <StyledImage src={image.url} alt={name} fill />
+            <StyledImage src={imageSrc} alt={`Illustration ${category}`} fill />
           </ImageContainer>
         )}
+        <LocationName>{name}</LocationName>
+        <Category>Kategorie: {category}</Category>
       </Card>
     </StyledLink>
   );
@@ -49,7 +60,7 @@ const Card = styled.div`
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 400px;
+  height: 200px;
 `;
 
 const StyledImage = styled(Image)`
