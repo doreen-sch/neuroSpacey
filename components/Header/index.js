@@ -19,8 +19,11 @@ export default function Header({ handleAddLocation, formData, setFormData }) {
 const StyledHeader = styled.div`
   display: flex;
   justify-content: flex-end;
+  box-sizing: border-box;
   width: 100%;
-  padding: 0 2.5rem;
   position: fixed;
+  top: 0;
   z-index: 2000;
+  background-color: white;
+  padding: 1rem 2.5rem;
 `;

@@ -71,7 +71,7 @@ export default function HomePage() {
   }
 
   return (
-    <StyledPageWrapper>
+    <div>
       <Header
         handleAddLocation={handleAddLocation}
         formData={formData}
@@ -97,13 +97,13 @@ export default function HomePage() {
       ) : (
         <MapView locations={locations} />
       )}
-    </StyledPageWrapper>
+    </div>
   );
 }
 
-const StyledPageWrapper = styled.div`
-  padding-top: 2rem;
-`;
+// const StyledPageWrapper = styled.div`
+//   padding-top: 0;
+// `;
 
 const StyledListAndMapButton = styled.button`
   margin: 4rem 0 0 2.5rem;
