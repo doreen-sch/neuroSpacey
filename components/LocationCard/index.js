@@ -1,32 +1,36 @@
+import { Description } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 
 export default function LocationCard({ location }) {
-  const { image, name, category } = location;
+  const { image, name, category, description } = location;
 
   const categoryImages = {
-    Einkaufen: "/images/Einkaufen_hell.png",
-    Dienstleistung: "/images/Dienstleistungen_hell.png",
-    Natur: "",
-    "Café & Restaurant": "/images/Cafe&Restaurant_hell.png",
-    Kultur: "",
-    Veranstaltung: "",
+    Einkaufen: "/images/einkaufen_hell",
+    Dienstleistung: "/images/dienstleistung_hell",
+    Natur: "/images/natur_hell",
+    "Café & Restaurant": "/images/cafe&restaurant_hell",
+    Kultur: "/images/kultur_hell",
+    Veranstaltung: "/images/veranstaltung_hell",
   };
 
   const imageSrc = categoryImages[category];
 
   return (
     <StyledLink href={`/locations/${location._id}`}>
-      <Card>
+      <StyledCard>
         {imageSrc && (
-          <ImageContainer>
+          <StyledImageContainer>
             <StyledImage src={imageSrc} alt={`Illustration ${category}`} fill />
-          </ImageContainer>
+          </StyledImageContainer>
         )}
-        <LocationName>{name}</LocationName>
-        <Category>Kategorie: {category}</Category>
-      </Card>
+        <StyledTextContainer>
+          <StyledLocationName>{name}</StyledLocationName>
+          <StyledCategory>Kategorie: {category}</StyledCategory>
+          <StyledCategory>{description}</StyledCategory>
+        </StyledTextContainer>
+      </StyledCard>
     </StyledLink>
   );
 }
@@ -36,35 +40,42 @@ const StyledLink = styled(Link)`
   color: inherit;
 `;
 
-const LocationName = styled.h2`
-  margin: 1rem;
-`;
-
-const Category = styled.p`
-  margin: 1rem;
-`;
-
-const Card = styled.div`
-  border: 1px solid lightgray;
-  border-radius: 10px;
+const StyledCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  flex: 1 1 300px;
   background-color: white;
-  box-shadow:
+  /* box-shadow:
     0 1px 1px hsl(0deg 0% 0% / 0.075),
     0 2px 2px hsl(0deg 0% 0% / 0.075),
     0 4px 4px hsl(0deg 0% 0% / 0.075),
     0 8px 8px hsl(0deg 0% 0% / 0.075),
-    0 16px 16px hsl(0deg 0% 0% / 0.075);
+    0 16px 16px hsl(0deg 0% 0% / 0.075); */
 `;
 
-const ImageContainer = styled.div`
+const StyledImageContainer = styled.div`
   position: relative;
-  height: 150px;
+  width: 33%;
+  min-height: 150px;
+  flex-shrink: 0;
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
   pointer-events: none;
   object-position: center 60%;
+`;
+
+const StyledTextContainer = styled.div`
+  flex: 1;
+  padding: 0rem;
+`;
+
+const StyledLocationName = styled.h2`
+  margin: 1rem;
+`;
+
+const StyledCategory = styled.p`
+  margin: 1rem;
 `;
