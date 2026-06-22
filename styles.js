@@ -1,7 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  *{ font-family: var(--font-body), sans-serif;}
+  *{ font-family: var(--font-body), sans-serif;
+  color: var(--color-text-900)
+  }
   :root {
 
 /* Light Mode */
@@ -220,5 +222,7 @@ var(--color-primaryDark-50) 80%
 
   h1, h2, h3 {
   font-family: var(--font-display), serif;
+    color: var(--color-text-800)
+
 }
 `;

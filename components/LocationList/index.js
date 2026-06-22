@@ -30,5 +30,5 @@ const StyledList = styled.ul`
 const StyledListItem = styled.li`
   flex: 1 1 300px;
   max-width: 100%;
-  padding: 0 0 2rem 0;
+  padding: 0 0 0.5rem 0;
 `;
