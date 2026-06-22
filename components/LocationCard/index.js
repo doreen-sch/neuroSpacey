@@ -60,10 +60,11 @@ const Card = styled.div`
 
 const ImageContainer = styled.div`
   position: relative;
-  height: 200px;
+  height: 150px;
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
   pointer-events: none;
+  object-position: center 60%;
 `;

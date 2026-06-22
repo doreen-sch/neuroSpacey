@@ -21,6 +21,19 @@ export default createGlobalStyle`
 --color-background-900: #712b1d;
 --color-background-950: #3d130d;
 
+/* Rosa Gradient */
+--color-rosa-50: #fff0f5;
+--color-rosa-100: #ffe0ec;
+--color-rosa-200: #fed6e0;
+--color-rosa-300: #fbb8cc;
+--color-rosa-400: #f794b0;
+--color-rosa-500: #f27098;
+--color-rosa-600: #e84d80;
+--color-rosa-700: #c73366;
+--color-rosa-800: #a52252;
+--color-rosa-900: #861843;
+--color-rosa-950: #4d0a25;
+
 /* Surface #baa5ae — zartes Mauve-Rosa für Cards */
 --color-surface-50: #fafafa;
 --color-surface-100: #f6f3f4;
@@ -195,10 +208,9 @@ export default createGlobalStyle`
 body {
   background: linear-gradient(
    180deg,
-        
-      #fed6e0 40%,
-    #fbeed6 60%,
-    #94eaed 90% 
+  
+var(--color-primaryDark-200) 0%,
+var(--color-primaryDark-50) 80%
   );
   background-attachment: fixed;
   min-height: 100vh;

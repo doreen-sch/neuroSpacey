@@ -30,7 +30,7 @@ const StyledHeader = styled.div`
   top: 0;
   z-index: 2000;
   padding: 1.2rem 1.5rem 1rem 1.5rem;
-  background-color: #fed6e0;
+  background-color: var(--color-primaryDark-200);
 `;
 
 const StyledLogo = styled(Image)`

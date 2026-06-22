@@ -193,7 +193,7 @@ const StyledPageWrapper = styled.div`
 `;
 
 const StyledLinkContainer = styled.div`
-  margin: 2rem 0 0 2rem;
+  margin: 5rem 0 0 2rem;
 `;
 
 const StyledLink = styled(Link)`
