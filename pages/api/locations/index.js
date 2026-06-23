@@ -14,7 +14,7 @@ export default async function handler(request, response) {
       const locationData = request.body;
       const { street, houseNumber, zipCode, city } = locationData.address;
 
-      locationData.isApproved = true;
+      locationData.isApproved = false;
 
       const geoResponse = await fetch(
         `https://nominatim.openstreetmap.org/search?street=${houseNumber}+${street}&city=${city}&postalcode=${zipCode}&country=Germany&format=json`,
