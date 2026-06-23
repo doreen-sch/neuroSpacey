@@ -2,6 +2,7 @@ import { Description } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
+import StilleStundeIcon from "/public/icons/hourglass.png";
 
 export default function LocationCard({ location }) {
   const { image, name, category, description } = location;
@@ -27,7 +28,20 @@ export default function LocationCard({ location }) {
         )}
         <StyledTextContainer>
           <StyledLocationName>{name}</StyledLocationName>
-          <StyledCategory>Kategorie: {category}</StyledCategory>
+          <StyledTagContainer>
+            <StyledTag>{category}</StyledTag>
+            {location.isQuietHour && (
+              <StyledTag>
+                <Image
+                  src={StilleStundeIcon}
+                  alt="Stille Stunde"
+                  width={16}
+                  height={16}
+                />
+                Stille Stunde
+              </StyledTag>
+            )}
+          </StyledTagContainer>
           <StyledDescription>{description}</StyledDescription>
         </StyledTextContainer>
       </StyledCard>
@@ -112,6 +126,28 @@ const StyledTextContainer = styled.div`
 
 const StyledLocationName = styled.h2`
   margin: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
+const StyledTagContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0 1rem 1rem 1rem;
+`;
+
+const StyledTag = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-200);
+  color: var(--color-text-900);
 `;
 
 const StyledCategory = styled.p`
