@@ -12,7 +12,26 @@ export default async function handler(request, response) {
     }
     if (request.method === "POST") {
       const locationData = request.body;
+      const { street, houseNumber, zipCode, city } = locationData.address;
+
       locationData.isApproved = false;
+
+      const geoResponse = await fetch(
+        `https://nominatim.openstreetmap.org/search?street=${houseNumber}+${street}&city=${city}&postalcode=${zipCode}&country=Germany&format=json`,
+        {
+          headers: {
+            "User-Agent": "NeuroSpacey/1.0 (dev@neurospacey.de)",
+          },
+        }
+      );
+
+      const geoData = await geoResponse.json();
+      if (geoData.length > 0) {
+        locationData.coordinates = {
+          lat: parseFloat(geoData[0].lat),
+          lng: parseFloat(geoData[0].lon),
+        };
+      }
       await Location.create(locationData);
       return response.status(201).json({ status: "Location created." });
     }

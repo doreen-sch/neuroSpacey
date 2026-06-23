@@ -12,7 +12,9 @@ export default function MapView({ locations }) {
 
   const validLocations = locations.filter(
     (location) =>
-      location.coordinates.lat !== 0 && location.coordinates.lng !== 0
+      location.coordinates &&
+      location.coordinates.lat !== 0 &&
+      location.coordinates.lng !== 0
   );
 
   if (validLocations.length === 0)
