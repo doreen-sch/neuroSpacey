@@ -17,12 +17,12 @@ export default function LocationList({ locations }) {
 }
 
 const StyledList = styled.ul`
+  display: flex;
   justify-content: center;
   box-sizing: border-box;
   list-style: none;
   width: 100%;
   padding: 10rem 2rem 2rem 2rem;
-  display: flex;
   flex-wrap: wrap;
   gap: 2rem;
 `;

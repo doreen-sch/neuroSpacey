@@ -4,7 +4,7 @@ import styled from "styled-components";
 import StilleStundeIcon from "/public/icons/hourglass.png";
 
 export default function LocationCard({ location }) {
-  const { image, name, category, description } = location;
+  const { name, category, description } = location;
 
   const categoryImages = {
     Einkaufen: "/images/einkaufen_hell",

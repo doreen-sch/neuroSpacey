@@ -62,10 +62,15 @@ export default function HomePage() {
         toast.success("Deine Location wurde zur Prüfung eingereicht", {
           id: "uploading",
         });
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
       }
     } catch {
       toast.error(
-        "Ups, da ist was schiefgelaufen. Bitte versuche es noch einmal.",
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
         { id: "uploading" }
       );
     }

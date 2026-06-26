@@ -30,7 +30,7 @@ export default function LocationDetails({
     <DetailsPage>
       <StyledHeroContainer>
         <StyledBackLink href="/">
-          <BackArrow width={0} height={0} />
+          <BackArrow />
         </StyledBackLink>
         <StyledHeroImage src={imageSrc} alt={`Illustration ${category}`} fill />
         <StyledHeroText>
@@ -157,7 +157,6 @@ const DetailsPage = styled.div`
   margin: 0rem auto;
   @media (min-width: 768px) {
     width: 60%;
-    height: 0 auto;
   }
   background-color: var(--color-surface-200);
 `;
