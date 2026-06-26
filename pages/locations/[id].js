@@ -168,35 +168,33 @@ export default function LocationDetailPage() {
   }
 
   return (
-    <StyledPageWrapper>
-      <Header
+    /* <Header
         handleAddLocation={handleAddLocation}
         formData={addFormData}
         setFormData={setAddFormData}
-      />
-      <StyledLinkContainer>
+      /> */
+    /* <StyledLinkContainer>
         <StyledLink href={`../`}>⬅️ Zurück zur Listenansicht</StyledLink>
-      </StyledLinkContainer>
-      <LocationDetails
-        location={location}
-        handleEditLocation={handleEditLocation}
-        handleDeleteLocation={handleDeleteLocation}
-        formData={formData}
-        setFormData={setFormData}
-      />
-    </StyledPageWrapper>
+      </StyledLinkContainer> */
+    <LocationDetails
+      location={location}
+      handleEditLocation={handleEditLocation}
+      handleDeleteLocation={handleDeleteLocation}
+      formData={formData}
+      setFormData={setFormData}
+    />
   );
 }
 
-const StyledPageWrapper = styled.div`
-  padding-top: 2rem;
-`;
+// const StyledPageWrapper = styled.div`
+//   padding-top: 0rem;
+// `;
 
-const StyledLinkContainer = styled.div`
-  margin: 5rem 0 0 2rem;
-`;
+// const StyledLinkContainer = styled.div`
+//   margin: 0rem 0 0 2rem;
+// `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: darkslateblue;
-`;
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+//   color: darkslateblue;
+// `;

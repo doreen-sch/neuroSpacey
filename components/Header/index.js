@@ -23,7 +23,6 @@ export default function Header({ handleAddLocation, formData, setFormData }) {
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  position: relative;
   box-sizing: border-box;
   width: 100%;
   position: fixed;

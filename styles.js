@@ -2,7 +2,6 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   *{ font-family: var(--font-body), sans-serif;
-  color: var(--color-text-900)
   }
   :root {
 
@@ -183,17 +182,19 @@ export default createGlobalStyle`
 --color-textSecondaryDark-950: #0d070a;
 
 /* Spacing */
+  --spacing-h3-p: 0.25rem;
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  --spacing-xl: 2rem;
   --spacing-xxl: 48px;
   
   /* Border Radius */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
+  --radius-overlap: 100px;
   --radius-full: 9999px;
   }
   *::before,
@@ -210,19 +211,16 @@ export default createGlobalStyle`
 body {
   background: linear-gradient(
    180deg,
-  
-var(--color-primaryDark-200) 0%,
+  var(--color-primaryDark-200) 0%,
 var(--color-primaryDark-50) 80%
   );
   background-attachment: fixed;
-  min-height: 100vh;
+    color: var(--color-text-800);
+
 }
-
-
 
   h1, h2, h3 {
   font-family: var(--font-display), serif;
-    color: var(--color-text-800)
-
+    color: var(--color-text-800);
 }
 `;

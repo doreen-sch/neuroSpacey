@@ -1,4 +1,3 @@
-import { Description } from "@radix-ui/react-dialog";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
@@ -136,7 +135,7 @@ const StyledTagContainer = styled.div`
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin: 0 1rem 1rem 1rem;
+  margin: 0 2rem 2rem 1rem;
 `;
 
 const StyledTag = styled.span`
@@ -148,10 +147,6 @@ const StyledTag = styled.span`
   border-radius: var(--radius-full);
   background-color: var(--color-surface-200);
   color: var(--color-text-900);
-`;
-
-const StyledCategory = styled.p`
-  margin: 1rem;
 `;
 
 const StyledDescription = styled.p`
