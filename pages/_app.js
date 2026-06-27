@@ -9,11 +9,13 @@ const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
 });
 const poppins = Poppins({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-body",
+  display: "swap",
 });
 
 const fetcher = async (url) => {
