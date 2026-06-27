@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
 import ViewSlider from "@/components/ViewSlider";
 import styled from "styled-components";
+// import { motion, AnimatePresence } from "framer-motion";
 
 const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
 
@@ -77,15 +78,41 @@ export default function HomePage() {
         setFormData={setFormData}
       />
       <ViewSlider view={view} setView={setView} />
-      {view === "list" ? (
-        <LocationList locations={locations} />
-      ) : (
-        <MapView locations={locations} />
-      )}
+      <StyledViewContainer $isMap={view === "map"}>
+        <StyledListPanel>
+          <LocationList locations={locations} />
+        </StyledListPanel>
+        <StyledMapPanel>
+          <MapView locations={locations} />
+        </StyledMapPanel>
+      </StyledViewContainer>
     </StyledPageWrapper>
   );
 }
 
 const StyledPageWrapper = styled.div`
   padding-top: 2rem;
+  overflow: hidden;
+`;
+
+const StyledViewContainer = styled.div`
+  position: fixed;
+  top: 4.5rem;
+  left: 0;
+  width: 200vw;
+  height: calc(100vh - 4.5rem);
+  display: flex;
+  transform: ${({ $isMap }) => ($isMap ? "translateX(-50%)" : "translateX(0)")};
+  transition: transform 0.4s ease-in-out;
+`;
+
+const StyledListPanel = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+`;
+
+const StyledMapPanel = styled.div`
+  width: 100%;
+  height: 100%;
 `;
