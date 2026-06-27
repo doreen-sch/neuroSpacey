@@ -1,6 +1,14 @@
 import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 import styled from "styled-components";
 import Link from "next/link";
+import L from "leaflet";
+
+const customIcon = L.icon({
+  iconUrl: "/icons/Pin.png",
+  iconSize: [35, 45],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
 
 export default function MapView({ locations }) {
   if (!locations)
@@ -40,6 +48,7 @@ export default function MapView({ locations }) {
             <Marker
               key={location._id}
               position={[coordinates.lat, coordinates.lng]}
+              icon={customIcon}
             >
               <Popup>
                 <div>
@@ -59,7 +68,7 @@ const StyledMapWrapper = styled.div`
   justify-content: center;
   position: fixed;
   width: 100%;
-  top: 4.5rem;
+  top: 10.5rem;
   left: 0;
   right: 0;
   bottom: 0;

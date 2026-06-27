@@ -1,10 +1,14 @@
 import Popover from "../Popover";
 import styled from "styled-components";
 import LocationForm from "../LocationForm";
+import Image from "next/image";
+import logo from "/public/neurospacey_logo.png";
 
 export default function Header({ handleAddLocation, formData, setFormData }) {
   return (
     <StyledHeader>
+      <Image src={logo} alt="neuroSpacey Logo" height={48} width={210} />
+
       <Popover>
         <LocationForm
           onSubmit={handleAddLocation}
@@ -18,9 +22,12 @@ export default function Header({ handleAddLocation, formData, setFormData }) {
 
 const StyledHeader = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  box-sizing: border-box;
   width: 100%;
-  padding: 0 2.5rem;
   position: fixed;
+  top: 0;
   z-index: 2000;
+  padding: 1.2rem 1.5rem 1rem 1.5rem;
+  background-color: var(--color-primaryDark-200);
 `;
