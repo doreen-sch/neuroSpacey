@@ -2,11 +2,11 @@ import useSWR from "swr";
 import { useState } from "react";
 import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
+import FadeOverlay from "@/components/FadeOverlay";
 import toast from "react-hot-toast";
 import dynamic from "next/dynamic";
 import ViewSlider from "@/components/ViewSlider";
 import styled from "styled-components";
-// import { motion, AnimatePresence } from "framer-motion";
 
 const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
 
@@ -61,17 +61,22 @@ export default function HomePage() {
         toast.success("Deine Location wurde zur Prüfung eingereicht", {
           id: "uploading",
         });
+      } else {
+        toast.error(
+          "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
+          { id: "uploading" }
+        );
       }
     } catch {
       toast.error(
-        "Ups, da ist was schiefgelaufen. Bitte versuche es noch einmal.",
+        "Ups, da ist etwas schiefgelaufen. Bitte versuche es noch einmal.",
         { id: "uploading" }
       );
     }
   }
 
   return (
-    <StyledPageWrapper>
+    <div>
       <Header
         handleAddLocation={handleAddLocation}
         formData={formData}
@@ -86,14 +91,14 @@ export default function HomePage() {
           <MapView locations={locations} />
         </StyledMapPanel>
       </StyledViewContainer>
-    </StyledPageWrapper>
+    </div>
   );
 }
 
-const StyledPageWrapper = styled.div`
-  padding-top: 2rem;
-  overflow: hidden;
-`;
+// const StyledPageWrapper = styled.div`
+//   padding-top: 2rem;
+//   overflow: hidden;
+// `;
 
 const StyledViewContainer = styled.div`
   position: fixed;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useMap } from "react-leaflet";
 import { useEffect } from "react";
+import L from "leaflet";
 
 function MapResizer() {
   const map = useMap();
@@ -11,6 +12,13 @@ function MapResizer() {
   }, [map]);
   return null;
 }
+
+const customIcon = L.icon({
+  iconUrl: "/icons/Pin.png",
+  iconSize: [35, 45],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
 
 export default function MapView({ locations }) {
   if (!locations)
@@ -53,6 +61,7 @@ export default function MapView({ locations }) {
             <Marker
               key={location._id}
               position={[coordinates.lat, coordinates.lng]}
+              icon={customIcon}
             >
               <Popup>
                 <div>
@@ -70,7 +79,6 @@ export default function MapView({ locations }) {
 
 const StyledMapWrapper = styled.div`
   justify-content: center;
-  /* position: fixed; */
   width: 100%;
   height: 100%;
   top: 4.5rem;

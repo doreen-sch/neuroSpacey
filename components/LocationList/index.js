@@ -17,16 +17,18 @@ export default function LocationList({ locations }) {
 }
 
 const StyledList = styled.ul`
+  display: flex;
   justify-content: center;
+  box-sizing: border-box;
   list-style: none;
   width: 100%;
-  padding: 7rem 2rem 2rem 2rem;
-  display: flex;
+  padding: 10rem 2rem 2rem 2rem;
   flex-wrap: wrap;
   gap: 2rem;
 `;
 
 const StyledListItem = styled.li`
   flex: 1 1 300px;
-  padding: 0 0 2rem 0;
+  max-width: 100%;
+  padding: 0 0 0.5rem 0;
 `;
