@@ -3,10 +3,9 @@ import { useState } from "react";
 import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
 import toast from "react-hot-toast";
-import styled from "styled-components";
 import dynamic from "next/dynamic";
-import ListIcon from "@/assets/icons/list-icon.svg";
-import MapIcon from "@/assets/icons/map-icon.svg";
+import ViewSlider from "@/components/ViewSlider";
+import styled from "styled-components";
 
 const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
 
@@ -77,21 +76,7 @@ export default function HomePage() {
         formData={formData}
         setFormData={setFormData}
       />
-      <StyledListAndMapButton
-        type="button"
-        onClick={() => setView(view === "list" ? "map" : "list")}
-        aria-label={
-          view === "list"
-            ? "Wechsel zur Kartenansicht"
-            : "Wechsel zur Listenansicht"
-        }
-      >
-        {view === "list" ? (
-          <MapIcon width={24} height={24} />
-        ) : (
-          <ListIcon width={24} height={24} />
-        )}
-      </StyledListAndMapButton>
+      <ViewSlider view={view} setView={setView} />
       {view === "list" ? (
         <LocationList locations={locations} />
       ) : (
@@ -103,16 +88,4 @@ export default function HomePage() {
 
 const StyledPageWrapper = styled.div`
   padding-top: 2rem;
-`;
-
-const StyledListAndMapButton = styled.button`
-  margin: 4rem 0 0 2.5rem;
-  position: fixed;
-  right: 2.5rem;
-  z-index: 999;
-  background: white;
-  border-radius: 5px;
-  padding-top: 4px;
-  border: none;
-  cursor: pointer;
 `;
