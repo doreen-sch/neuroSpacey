@@ -6,6 +6,7 @@ import StilleStundeIcon from "/public/icons/hourglass.png";
 import AddressIcon from "/public/icons/Pin_entsättigt.png";
 import Link from "next/link";
 import BackArrow from "/assets/icons/arrow-left.svg";
+import { categoryImages } from "@/utils/categoryImages";
 
 export default function LocationDetails({
   location,
@@ -16,14 +17,6 @@ export default function LocationDetails({
 }) {
   const { name, address, description, category } = location;
 
-  const categoryImages = {
-    Einkaufen: "/images/einkaufen_hell",
-    Dienstleistung: "/images/dienstleistung_hell",
-    Natur: "/images/natur_hell",
-    "Café & Restaurant": "/images/cafe&restaurant_hell",
-    Kultur: "/images/kultur_hell",
-    Veranstaltung: "/images/veranstaltung_hell",
-  };
   const imageSrc = categoryImages[category];
 
   return (
@@ -53,12 +46,7 @@ export default function LocationDetails({
           )}
         </StyledTagContainer>{" "}
         <StyledAddressLine>
-          <StyledAddressIcon
-            src={AddressIcon}
-            alt="Adresse"
-            width={0}
-            height={0}
-          />{" "}
+          <Image src={AddressIcon} alt="Adresse" width={19} height={23} />
           {address.street} {address.houseNumber}, {address.zipCode}{" "}
           {address.city}
         </StyledAddressLine>
@@ -136,11 +124,6 @@ const StyledHeroText = styled.div`
   }
 `;
 
-const StyledAddressIcon = styled(Image)`
-  width: 1.2rem;
-  height: 1.4rem;
-`;
-
 const ContentContainer = styled.div`
   background-color: var(--color-surface-50);
   border-radius: 0 100px 0 0;
@@ -148,13 +131,12 @@ const ContentContainer = styled.div`
   margin-top: -1rem;
   padding: 1rem 0;
   z-index: 2;
-  min-height: auto;
 `;
 
 const DetailsPage = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0rem auto;
+  margin: 0 auto;
   @media (min-width: 768px) {
     width: 60%;
   }

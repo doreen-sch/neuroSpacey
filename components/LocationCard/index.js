@@ -2,18 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import StilleStundeIcon from "/public/icons/hourglass.png";
+import { categoryImages } from "@/utils/categoryImages";
 
 export default function LocationCard({ location }) {
   const { name, category, description } = location;
-
-  const categoryImages = {
-    Einkaufen: "/images/einkaufen_hell",
-    Dienstleistung: "/images/dienstleistung_hell",
-    Natur: "/images/natur_hell",
-    "Café & Restaurant": "/images/cafe&restaurant_hell",
-    Kultur: "/images/kultur_hell",
-    Veranstaltung: "/images/veranstaltung_hell",
-  };
 
   const imageSrc = categoryImages[category];
 
@@ -93,7 +85,7 @@ const StyledImage = styled(Image)`
 const StyledTextContainer = styled.div`
   position: relative;
   flex: 1;
-  padding: 0rem;
+  padding: 0;
   z-index: 2;
   &::before {
     content: "";

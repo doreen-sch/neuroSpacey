@@ -3,6 +3,13 @@ import styled from "styled-components";
 import Link from "next/link";
 import L from "leaflet";
 
+const customIcon = L.icon({
+  iconUrl: "/icons/Pin.png",
+  iconSize: [35, 45],
+  iconAnchor: [16, 32],
+  popupAnchor: [0, -32],
+});
+
 export default function MapView({ locations }) {
   if (!locations)
     return (
@@ -20,13 +27,6 @@ export default function MapView({ locations }) {
 
   if (validLocations.length === 0)
     return <p>Noch keine Locations verfügbar.</p>;
-
-  const customIcon = L.icon({
-    iconUrl: "/icons/Pin.png",
-    iconSize: [35, 45],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  });
 
   return (
     <StyledMapWrapper>
