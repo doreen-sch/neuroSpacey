@@ -115,6 +115,7 @@ const StyledListPanel = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  padding-right: 1rem;
 `;
 
 const StyledMapPanel = styled.div`
