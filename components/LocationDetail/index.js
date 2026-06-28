@@ -22,7 +22,7 @@ export default function LocationDetails({
   return (
     <StyledDetailsPage>
       <StyledHeroContainer>
-        <StyledBackLink href="/">
+        <StyledBackLink href="/locations">
           <BackArrow />
         </StyledBackLink>
         <StyledHeroImage src={imageSrc} alt={`Illustration ${category}`} fill />

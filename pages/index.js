@@ -1,57 +1,188 @@
 import useSWR from "swr";
-import { useState } from "react";
-import LocationList from "@/components/LocationList";
-import dynamic from "next/dynamic";
-import ViewSlider from "@/components/ViewSlider";
 import styled from "styled-components";
+import Image from "next/image";
+import Link from "next/link";
+import logo from "/public/neurospacey_logo.png";
+import { categoryImages } from "@/utils/categoryImages";
+import PinIcon from "/public/icons/Pin_entsättigt.png";
 
-const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
+const categories = [
+  { name: "Einkaufen", icon: "/images/einkaufen_hell.png" },
+  { name: "Dienstleistung", icon: "/images/dienstleistung_hell.png" },
+  { name: "Natur", icon: "/images/natur_hell.png" },
+  { name: "Café & Restaurant", icon: "/images/cafeRestaurant_hell.png" },
+  { name: "Kultur", icon: "/images/kultur_hell.png" },
+  { name: "Veranstaltung", icon: "/images/veranstaltung_hell.png" },
+];
 
 export default function HomePage() {
-  const { data: locations, error, isLoading } = useSWR("/api/locations");
-
-  const [view, setView] = useState("list");
-
-  if (error) {
-    return <h1>Oops… something went wrong.</h1>;
-  }
+  const { data: locations, isLoading, error } = useSWR("/api/locations");
 
   if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Oops… something went wrong.</p>;
+
+  const newestLocations = locations?.slice(0, 5) || [];
 
   return (
-    <div>
-      <ViewSlider view={view} setView={setView} />
-      <StyledViewContainer $isMap={view === "map"}>
-        <StyledListPanel>
-          <LocationList locations={locations} />
-        </StyledListPanel>
-        <StyledMapPanel>
-          <MapView locations={locations} />
-        </StyledMapPanel>
-      </StyledViewContainer>
-    </div>
+    <StyledPage>
+      <StyledLogo src={logo} alt="neuroSpacey Logo" width={180} height={48} />
+
+      <StyledSection>
+        <StyledSectionTitle>Entdecken</StyledSectionTitle>
+        <StyledDiscoverSlider>
+          {newestLocations.map((location) => (
+            <StyledDiscoverCard
+              key={location._id}
+              href={`/locations/${location._id}`}
+            >
+              <StyledCardImage
+                src={categoryImages[location.category]}
+                alt={location.category}
+                fill
+              />
+              <StyledCardOverlay>
+                <StyledCardName>{location.name}</StyledCardName>
+                <StyledCardCity>
+                  <Image src={PinIcon} alt="Standort" width={16} height={20} />{" "}
+                  {location.address.city}
+                </StyledCardCity>
+              </StyledCardOverlay>
+            </StyledDiscoverCard>
+          ))}
+        </StyledDiscoverSlider>
+      </StyledSection>
+
+      <StyledSection>
+        <StyledSectionTitle>Kategorien</StyledSectionTitle>
+        <StyledCategorySlider>
+          {categories.map((cat) => (
+            <StyledCategoryItem key={cat.name}>
+              <StyledCategoryImageWrapper>
+                <Image src={cat.icon} alt={cat.name} fill />
+              </StyledCategoryImageWrapper>
+              <StyledCategoryName>{cat.name}</StyledCategoryName>
+            </StyledCategoryItem>
+          ))}
+        </StyledCategorySlider>
+      </StyledSection>
+    </StyledPage>
   );
 }
 
-const StyledViewContainer = styled.div`
-  position: fixed;
-  left: 0;
-  width: 200vw;
-  height: calc(100vh - 4rem);
+const StyledPage = styled.div`
+  padding: 2rem 1.5rem 6rem 1.5rem;
   display: flex;
-  transform: ${({ $isMap }) => ($isMap ? "translateX(-50%)" : "translateX(0)")};
-  transition: transform 0.4s ease-in-out;
+  flex-direction: column;
+  gap: 2rem;
 `;
 
-const StyledListPanel = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  padding-right: 1rem;
+const StyledLogo = styled(Image)`
+  width: 15rem;
+  height: auto;
 `;
 
-const StyledMapPanel = styled.div`
-  width: 100%;
-  height: 100%;
-  padding-left: 1rem;
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const StyledSectionTitle = styled.h2`
+  font-size: 1.5rem;
+`;
+
+const StyledDiscoverSlider = styled.div`
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StyledDiscoverCard = styled(Link)`
+  position: relative;
+  flex-shrink: 0;
+  width: 15rem;
+  height: 20rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  scroll-snap-align: start;
+  text-decoration: none;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 16px 32px rgba(0, 0, 0, 0.04);
+`;
+
+const StyledCardImage = styled(Image)`
+  object-fit: cover;
+`;
+
+const StyledCardOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  color: white;
+`;
+
+const StyledCardName = styled.h3`
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+`;
+
+const StyledCardCity = styled.p`
+  margin: 0;
+  font-size: 0.8rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`;
+
+const StyledCategorySlider = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StyledCategoryItem = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+const StyledCategoryImageWrapper = styled.div`
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background-color: var(--color-surface-200);
+`;
+
+const StyledCategoryName = styled.span`
+  font-size: 0.75rem;
+  color: var(--color-text-900);
+  text-align: center;
+  max-width: 5rem;
 `;
