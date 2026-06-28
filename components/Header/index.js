@@ -1,21 +1,11 @@
-import Popover from "../Popover";
 import styled from "styled-components";
-import LocationForm from "../LocationForm";
 import Image from "next/image";
 import logo from "/public/neurospacey_logo.png";
 
-export default function Header({ handleAddLocation, formData, setFormData }) {
+export default function Header() {
   return (
     <StyledHeader>
       <Image src={logo} alt="neuroSpacey Logo" height={48} width={210} />
-
-      <Popover>
-        <LocationForm
-          onSubmit={handleAddLocation}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      </Popover>
     </StyledHeader>
   );
 }

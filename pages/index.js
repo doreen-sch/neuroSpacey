@@ -95,11 +95,6 @@ export default function HomePage() {
   );
 }
 
-// const StyledPageWrapper = styled.div`
-//   padding-top: 2rem;
-//   overflow: hidden;
-// `;
-
 const StyledViewContainer = styled.div`
   position: fixed;
   top: 4.5rem;
