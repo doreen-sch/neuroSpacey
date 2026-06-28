@@ -22,7 +22,7 @@ const StyledList = styled.ul`
   box-sizing: border-box;
   list-style: none;
   width: 100%;
-  padding: 10rem 2rem 2rem 2rem;
+  padding: 2rem 2rem 2rem 2rem;
   flex-wrap: wrap;
   gap: 2rem;
 `;

@@ -1,45 +1,85 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import * as Dialog from "@radix-ui/react-dialog";
+import AddIcon from "@/assets/icons/square-plus.svg";
+import XIcon from "@/assets/icons/square-x.svg";
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function Popover({ children, onClose, trigger, isEditMode }) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export default function Popover({
+  children,
+  onClose,
+  trigger,
+  isEditMode,
+  isOpen,
+  onOpenChange,
+}) {
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={onOpenChange} modal={false}>
       <Dialog.Trigger asChild>
-        {trigger || <button aria-label="Neue Location hinzufügen">+</button>}
+        {trigger || (
+          <StyledAddButton>
+            <AnimatePresence mode="wait">
+              <StyledIconWrapper
+                key={isOpen ? "x" : "plus"}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isOpen ? (
+                  <XIcon aria-label="Formular schließen" />
+                ) : (
+                  <AddIcon aria-label="Neue Location hinzufügen" />
+                )}
+              </StyledIconWrapper>
+            </AnimatePresence>
+          </StyledAddButton>
+        )}
       </Dialog.Trigger>
       <Dialog.Portal>
-        <StyledOverlay></StyledOverlay>
-        <StyledContent onInteractOutside={(event) => event.preventDefault()}>
+        {isOpen && (
+          <StyledOverlay onClick={(event) => event.stopPropagation()} />
+        )}
+        <StyledContent onPointerDownOutside={(event) => event.preventDefault()}>
+          {" "}
           {React.cloneElement(children, {
             onClose: () => {
-              setIsOpen(false);
+              onOpenChange(false);
               onClose?.();
             },
           })}
-          {!isEditMode && <StyledClose aria-label="Close">x</StyledClose>}
         </StyledContent>
       </Dialog.Portal>
     </Dialog.Root>
   );
 }
 
-const StyledOverlay = styled(Dialog.Overlay)`
+const StyledOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   inset: 0;
-  @keyframes overlayShow {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
   z-index: 1000;
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+`;
+
+const StyledAddButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-700);
+
+  svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+`;
+
+const StyledIconWrapper = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledContent = styled(Dialog.Content)`

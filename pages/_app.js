@@ -4,6 +4,10 @@ import { Toaster } from "react-hot-toast";
 import "leaflet/dist/leaflet.css";
 import { DM_Serif_Display, Poppins } from "next/font/google";
 import styled from "styled-components";
+import NavBar from "@/components/BottomNavigation";
+import { useState } from "react";
+import useSWR from "swr";
+import toast from "react-hot-toast";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -30,6 +34,47 @@ const fetcher = async (url) => {
 };
 
 export default function App({ Component, pageProps }) {
+  const { mutate } = useSWR("/api/locations");
+
+  const [formData, setFormData] = useState({
+    name: "",
+    street: "",
+    houseNumber: "",
+    zipCode: "",
+    city: "",
+    category: "",
+    isQuietHour: false,
+    description: "",
+  });
+
+  async function handleAddLocation(event) {
+    event.preventDefault();
+    const locationFormData = new FormData(event.target);
+    const locationData = Object.fromEntries(locationFormData);
+    locationData.isQuietHour = locationData.isQuietHour === "on";
+    locationData.address = {
+      street: locationData.street,
+      houseNumber: locationData.houseNumber,
+      zipCode: locationData.zipCode,
+      city: locationData.city,
+    };
+    try {
+      const uploadResponse = await fetch("/api/locations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(locationData),
+      });
+      if (uploadResponse.ok) {
+        mutate();
+        toast.success("Deine Location wurde zur Prüfung eingereicht.");
+      } else {
+        toast.error("Ups, da ist etwas schiefgelaufen.");
+      }
+    } catch {
+      toast.error("Ups, da ist etwas schiefgelaufen.");
+    }
+  }
+
   return (
     <StyledWrapper className={`${dmSerifDisplay.variable} ${poppins.variable}`}>
       <SWRConfig value={{ fetcher }}>
@@ -38,6 +83,11 @@ export default function App({ Component, pageProps }) {
         <main>
           <Component {...pageProps} />
         </main>
+        <NavBar
+          handleAddLocation={handleAddLocation}
+          formData={formData}
+          setFormData={setFormData}
+        />
       </SWRConfig>
     </StyledWrapper>
   );
