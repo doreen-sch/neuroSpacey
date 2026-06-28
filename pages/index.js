@@ -4,10 +4,9 @@ import LocationList from "@/components/LocationList";
 import Header from "@/components/Header";
 import FadeOverlay from "@/components/FadeOverlay";
 import toast from "react-hot-toast";
-import styled from "styled-components";
 import dynamic from "next/dynamic";
-import ListIcon from "@/assets/icons/list-icon.svg";
-import MapIcon from "@/assets/icons/map-icon.svg";
+import ViewSlider from "@/components/ViewSlider";
+import styled from "styled-components";
 
 const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
 
@@ -83,39 +82,44 @@ export default function HomePage() {
         formData={formData}
         setFormData={setFormData}
       />
-      <FadeOverlay />
-      <StyledListAndMapButton
-        type="button"
-        onClick={() => setView(view === "list" ? "map" : "list")}
-        aria-label={
-          view === "list"
-            ? "Wechsel zur Kartenansicht"
-            : "Wechsel zur Listenansicht"
-        }
-      >
-        {view === "list" ? (
-          <MapIcon width={24} height={24} />
-        ) : (
-          <ListIcon width={24} height={24} />
-        )}
-      </StyledListAndMapButton>
-      {view === "list" ? (
-        <LocationList locations={locations} />
-      ) : (
-        <MapView locations={locations} />
-      )}
+      <ViewSlider view={view} setView={setView} />
+      <StyledViewContainer $isMap={view === "map"}>
+        <StyledListPanel>
+          <LocationList locations={locations} />
+        </StyledListPanel>
+        <StyledMapPanel>
+          <MapView locations={locations} />
+        </StyledMapPanel>
+      </StyledViewContainer>
     </div>
   );
 }
 
-const StyledListAndMapButton = styled.button`
-  margin: 6rem 0 0 2.5rem;
+// const StyledPageWrapper = styled.div`
+//   padding-top: 2rem;
+//   overflow: hidden;
+// `;
+
+const StyledViewContainer = styled.div`
   position: fixed;
-  right: 2.5rem;
-  z-index: 999;
-  background: white;
-  border-radius: 5px;
-  padding-top: 4px;
-  border: none;
-  cursor: pointer;
+  top: 4.5rem;
+  left: 0;
+  width: 200vw;
+  height: calc(100vh - 4.5rem);
+  display: flex;
+  transform: ${({ $isMap }) => ($isMap ? "translateX(-50%)" : "translateX(0)")};
+  transition: transform 0.4s ease-in-out;
+`;
+
+const StyledListPanel = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 1rem;
+`;
+
+const StyledMapPanel = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-left: 1rem;
 `;

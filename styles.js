@@ -201,6 +201,7 @@ export default createGlobalStyle`
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
+  --radius-xl: 66px;
   --radius-overlap: 100px;
   --radius-full: 9999px;
   }
