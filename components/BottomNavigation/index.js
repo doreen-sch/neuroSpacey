@@ -1,17 +1,45 @@
 import Popover from "../Popover";
 import LocationForm from "../LocationForm";
 import styled from "styled-components";
+import HomeIcon from "/assets/icons/house.svg";
+import LocationIcon from "/assets/icons/map-pin.svg";
+import FavouritIcon from "/assets/icons/heart.svg";
+import ProfileIcon from "/assets/icons/user.svg";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function NavBar({ handleAddLocation, formData, setFormData }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   return (
     <StyledNavBar>
-      <Popover>
+      <StyledNavButton type="button" aria-label="Home">
+        <HomeIcon />
+      </StyledNavButton>
+      <Link href="/">
+        <StyledNavButton
+          type="button"
+          aria-label="Orte"
+          className={router.pathname === "/" ? "active" : ""}
+        >
+          <LocationIcon />
+        </StyledNavButton>
+      </Link>
+      <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
         <LocationForm
           onSubmit={handleAddLocation}
           formData={formData}
           setFormData={setFormData}
         />
       </Popover>
+      <StyledNavButton type="button" aria-label="Favoriten">
+        <FavouritIcon />
+      </StyledNavButton>
+      <StyledNavButton type="button" aria-label="Profil">
+        <ProfileIcon />
+      </StyledNavButton>
     </StyledNavBar>
   );
 }
@@ -22,10 +50,53 @@ const StyledNavBar = styled.nav`
   left: 0;
   width: 100%;
   height: 4rem;
-  background-color: var(--color-surface-200);
+  background-color: var(--color-surface-100);
   z-index: 2000;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 24px 24px 0 0;
+  justify-content: space-around;
+  border-top: 1px solid var(--color-surface-300);
 `;
+
+const StyledNavButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  position: relative;
+  &.active::before {
+    content: "";
+    position: absolute;
+    top: -0.6rem;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: var(--color-primary-600);
+    border-radius: var(--radius-full);
+  }
+
+  svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    stroke: var(--color-text-700);
+    fill: none;
+  }
+`;
+
+// const StyledNavButtonActive = styled(StyledNavButton)`
+//   position: relative;
+//   &.active::before {
+//     content: "";
+//     position: absolute;
+//     top: -1rem;
+//     left: 0;
+//     right: 0;
+//     height: 2px;
+//     background-color: var(--color-primary-600);
+//     border-radius: var(--radius-full);
+//   }
+// `;
