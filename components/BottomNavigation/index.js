@@ -86,17 +86,3 @@ const StyledNavButton = styled.button`
     fill: none;
   }
 `;
-
-// const StyledNavButtonActive = styled(StyledNavButton)`
-//   position: relative;
-//   &.active::before {
-//     content: "";
-//     position: absolute;
-//     top: -1rem;
-//     left: 0;
-//     right: 0;
-//     height: 2px;
-//     background-color: var(--color-primary-600);
-//     border-radius: var(--radius-full);
-//   }
-// `;
