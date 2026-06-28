@@ -6,24 +6,27 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function ViewSlider({ view, setView }) {
   const isMap = view === "map";
 
+  const toggleView = () => {
+    setView(isMap ? "list" : "map");
+  };
+
   return (
     <>
       <StyledBar $isMap={isMap} />
       <StyledTab
-        onClick={() => setView(isMap ? "list" : "map")}
+        type="button"
+        onClick={toggleView}
         $isMap={isMap}
         aria-label={
-          view === "list"
-            ? "Wechsel zur Kartenansicht"
-            : "Wechsel zur Listenansicht"
+          isMap ? "Wechsel zur Kartenansicht" : "Wechsel zur Listenansicht"
         }
       >
         <AnimatePresence mode="wait">
           <StyledIconWrapper
             key={view}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.2 }}
           >
             {isMap ? <ListIcon /> : <MapIcon />}
@@ -36,18 +39,14 @@ export default function ViewSlider({ view, setView }) {
 
 const StyledTab = styled.button`
   position: fixed;
-  left: ${({ $isMap }) => ($isMap ? "-0.5rem" : "calc(100vw - 3.9rem)")};
   bottom: 10%;
-  transition:
-    left 0.4s ease-in-out,
-    right 0.4s ease-in-out;
-
+  transform: ${({ $isMap }) =>
+    $isMap ? "translateX(-0.5rem)" : "translateX(calc(100vw - 3.9rem))"};
+  transition: transform 0.4s ease-in-out;
   z-index: 999;
   background-color: var(--color-text-700);
   border: none;
-  border-radius: ${({ $isMap }) =>
-    $isMap ? "var(--radius-full)" : "var(--radius-full)"};
-
+  border-radius: var(--radius-full);
   padding: 1rem;
   width: 4rem;
   height: 4rem;
@@ -71,10 +70,13 @@ const StyledIconWrapper = styled(motion.div)`
 const StyledBar = styled.div`
   position: fixed;
   top: 0;
-  left: ${({ $isMap }) => ($isMap ? "0" : "calc(100vw - 1rem)")};
+  left: 0;
   width: 1rem;
   height: 100vh;
   background-color: var(--color-text-700);
   z-index: 998;
-  transition: left 0.4s ease-in-out;
+  transform: ${({ $isMap }) =>
+    $isMap ? "translateX(0)" : "translateX(calc(100vw - 1rem))"};
+
+  transition: transform 0.4s ease-in-out;
 `;
