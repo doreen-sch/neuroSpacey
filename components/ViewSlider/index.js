@@ -39,14 +39,14 @@ export default function ViewSlider({ view, setView }) {
 
 const StyledTab = styled.button`
   position: fixed;
-  bottom: 10%;
+  bottom: 15%;
   transform: ${({ $isMap }) =>
     $isMap ? "translateX(-0.5rem)" : "translateX(calc(100vw - 3.9rem))"};
   transition: transform 0.4s ease-in-out;
   z-index: 999;
   background-color: var(--color-text-700);
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-lg);
   padding: 1rem;
   width: 4rem;
   height: 4rem;

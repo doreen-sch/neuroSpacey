@@ -20,7 +20,7 @@ export default function LocationDetails({
   const imageSrc = categoryImages[category];
 
   return (
-    <DetailsPage>
+    <StyledDetailsPage>
       <StyledHeroContainer>
         <StyledBackLink href="/">
           <BackArrow />
@@ -80,9 +80,20 @@ export default function LocationDetails({
           </StyledDeleteButton>
         </StyledButtonContainer>
       </ContentContainer>
-    </DetailsPage>
+    </StyledDetailsPage>
   );
 }
+
+const StyledDetailsPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: calc(100vh - 4rem);
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+  background-color: var(--color-surface-200);
+`;
 
 const StyledBackLink = styled(Link)`
   position: absolute;
@@ -131,16 +142,6 @@ const ContentContainer = styled.div`
   margin-top: -1rem;
   padding: 1rem 0;
   z-index: 2;
-`;
-
-const DetailsPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  @media (min-width: 768px) {
-    width: 60%;
-  }
-  background-color: var(--color-surface-200);
 `;
 
 const StyledAddressLine = styled.div`

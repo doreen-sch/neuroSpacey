@@ -22,9 +22,10 @@ const StyledNavBar = styled.nav`
   left: 0;
   width: 100%;
   height: 4rem;
-  background-color: var(--color-primary-200);
+  background-color: var(--color-surface-200);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 24px 24px 0 0;
 `;
