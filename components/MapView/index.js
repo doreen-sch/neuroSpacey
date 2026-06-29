@@ -24,7 +24,8 @@ export default function MapView({ locations }) {
   if (!locations)
     return (
       <p>
-        Fehler beim Laden der Locations. <Link href="/">zurück zur Liste</Link>
+        Fehler beim Laden der Locations.{" "}
+        <Link href="/locations">zurück zur Liste</Link>
       </p>
     );
 

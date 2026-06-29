@@ -8,6 +8,7 @@ import NavBar from "@/components/BottomNavigation";
 import { useState } from "react";
 import useSWR from "swr";
 import toast from "react-hot-toast";
+import BurgerMenu from "@/components/BurgerMenu";
 
 const dmSerifDisplay = DM_Serif_Display({
   weight: "400",
@@ -80,6 +81,8 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <GlobalStyle />
         <Toaster />
+        <BurgerMenu />
+
         <main>
           <Component {...pageProps} />
         </main>

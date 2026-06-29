@@ -15,14 +15,21 @@ export default function NavBar({ handleAddLocation, formData, setFormData }) {
 
   return (
     <StyledNavBar>
-      <StyledNavButton type="button" aria-label="Home">
-        <HomeIcon />
-      </StyledNavButton>
       <Link href="/">
         <StyledNavButton
           type="button"
-          aria-label="Orte"
+          aria-label="Home"
           className={router.pathname === "/" ? "active" : ""}
+        >
+          <HomeIcon />
+        </StyledNavButton>
+      </Link>
+
+      <Link href="/locations">
+        <StyledNavButton
+          type="button"
+          aria-label="Orte"
+          className={router.pathname === "/locations" ? "active" : ""}
         >
           <LocationIcon />
         </StyledNavButton>
