@@ -6,7 +6,7 @@ import StilleStundeIcon from "/public/icons/hourglass.png";
 import AddressIcon from "/public/icons/Pin_entsättigt.png";
 import Link from "next/link";
 import BackArrow from "/assets/icons/arrow-left.svg";
-import { categoryImages } from "@/utils/categoryImages";
+import { categoryImages, categoryImagesDark } from "@/utils/categoryImages";
 import { useRouter } from "next/router";
 
 export default function LocationDetails({
@@ -15,10 +15,13 @@ export default function LocationDetails({
   handleDeleteLocation,
   formData,
   setFormData,
+  isDark,
 }) {
   const { name, address, description, category } = location;
 
-  const imageSrc = categoryImages[category];
+  // const imageSrc = categoryImages[category];
+  const images = isDark ? categoryImagesDark : categoryImages;
+  const imageSrc = images[category];
 
   const router = useRouter();
 
@@ -96,6 +99,9 @@ const StyledDetailsPage = styled.div`
     width: 60%;
   }
   background-color: var(--color-surface-200);
+  body.dark & {
+    background-color: var(--color-surfaceDark-900);
+  }
 `;
 
 const StyledBackButton = styled.button`
@@ -112,6 +118,9 @@ const StyledBackButton = styled.button`
     stroke: var(--color-text-900);
     stroke-width: 2;
     fill: none;
+  }
+  body.dark & svg {
+    stroke: var(--color-textDark-200);
   }
 `;
 
@@ -139,6 +148,9 @@ const StyledHeroText = styled.div`
     padding: 0 4rem 1rem var(--spacing-xl);
     max-width: 80%;
   }
+  body.dark & {
+    background-color: var(--color-surfaceDark-900);
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -148,6 +160,9 @@ const ContentContainer = styled.div`
   margin-top: -1rem;
   padding: 1rem 0;
   z-index: 2;
+  body.dark & {
+    background-color: var(--color-surfaceDark-800);
+  }
 `;
 
 const StyledAddressLine = styled.div`
@@ -185,6 +200,10 @@ const StyledTag = styled.span`
   border-radius: var(--radius-full);
   background-color: var(--color-surface-200);
   color: var(--color-text-900);
+  body.dark & {
+    background-color: var(--color-surfaceDark-700);
+    color: var(--color-textDark-200);
+  }
 `;
 
 const StyledButtonContainer = styled.div`
@@ -209,9 +228,17 @@ const StyledButton = styled.button`
 const StyledEditButton = styled(StyledButton)`
   background-color: var(--color-primary-200);
   color: var(--color-primary-800);
+  body.dark & {
+    background-color: var(--color-primaryDark-700);
+    color: var(--color-primaryDark-200);
+  }
 `;
 
 const StyledDeleteButton = styled(StyledButton)`
   background-color: var(--color-accent-200);
   color: var(--color-accent-800);
+  body.dark & {
+    background-color: var(--color-accentDark-700);
+    color: var(--color-accentDark-200);
+  }
 `;

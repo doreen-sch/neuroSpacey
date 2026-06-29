@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "/public/neurospacey_logo.png";
-import { categoryImages } from "@/utils/categoryImages";
+import { categoryImages, categoryImagesDark } from "@/utils/categoryImages";
 import PinIcon from "/public/icons/Pin_entsättigt.png";
 import { useRef, useState } from "react";
 import ChevronLeft from "@/assets/icons/circle-chevron-left.svg";
@@ -18,7 +18,16 @@ const categories = [
   { name: "Veranstaltung", icon: "/images/veranstaltung_hell.png" },
 ];
 
-export default function HomePage() {
+const categoriesDark = [
+  { name: "Einkaufen", icon: "/images/einkaufen_dunkel.png" },
+  { name: "Dienstleistung", icon: "/images/dienstleistung_dunkel.png" },
+  { name: "Natur", icon: "/images/natur_dunkel.png" },
+  { name: "Café & Restaurant", icon: "/images/cafeRestaurant_dunkel.png" },
+  { name: "Kultur", icon: "/images/kultur_dunkel.png" },
+  { name: "Veranstaltung", icon: "/images/veranstaltung_dunkel.png" },
+];
+
+export default function HomePage({ isDark }) {
   const { data: locations, isLoading, error } = useSWR("/api/locations");
 
   const sliderRef = useRef(null);
@@ -33,6 +42,9 @@ export default function HomePage() {
 
   const [isCatScrolling, setIsCatScrolling] = useState(false);
   const catScrollTimeout = useRef(null);
+
+  const images = isDark ? categoryImagesDark : categoryImages;
+  const activeCategories = isDark ? categoriesDark : categories;
 
   function handleScroll() {
     const el = sliderRef.current;
@@ -80,7 +92,7 @@ export default function HomePage() {
                   href={`/locations/${location._id}`}
                 >
                   <StyledCardImage
-                    src={categoryImages[location.category]}
+                    src={images[location.category]}
                     alt={location.category}
                     fill
                   />
@@ -119,7 +131,7 @@ export default function HomePage() {
             ref={categoryRef}
             onScroll={handleCategoryScroll}
           >
-            {categories.map((category) => (
+            {activeCategories.map((category) => (
               <StyledCategoryItem key={category.name}>
                 <StyledCategoryImageWrapper>
                   <Image src={category.icon} alt={category.name} fill />
@@ -176,6 +188,9 @@ const StyledScrollIndicator = styled.div`
     fill: none;
     opacity: 70%;
   }
+  body.dark & svg {
+    stroke: var(--color-textDark-300);
+  }
 `;
 
 const StyledSection = styled.section`
@@ -186,6 +201,9 @@ const StyledSection = styled.section`
 
 const StyledSectionTitle = styled.h2`
   font-size: 1.5rem;
+  body.dark & {
+    color: var(--color-textDark-200);
+  }
 `;
 
 const StyledSliderWrapper = styled.div`
@@ -201,7 +219,6 @@ const StyledDiscoverSlider = styled.div`
   scroll-padding-right: 4rem;
   padding-left: 2rem;
   padding-right: 1rem;
-
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -259,7 +276,6 @@ const StyledCategorySlider = styled.div`
   gap: 1rem;
   padding-left: 2.5rem;
   padding-right: 1rem;
-
   overflow-x: auto;
   padding-bottom: 1rem;
   -ms-overflow-style: none;
@@ -290,6 +306,9 @@ const StyledCategoryImageWrapper = styled.div`
   box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.12),
     0 3px 6px rgba(0, 0, 0, 0.12);
+  body.dark & {
+    background-color: var(--color-surfaceDark-700);
+  }
 `;
 
 const StyledCategoryName = styled.span`
@@ -297,6 +316,9 @@ const StyledCategoryName = styled.span`
   color: var(--color-text-900);
   text-align: center;
   max-width: 5rem;
+  body.dark & {
+    color: var(--color-textDark-200);
+  }
 `;
 
 const StyledCategoryWrapper = styled.div`

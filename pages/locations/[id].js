@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-export default function LocationDetailPage() {
+export default function LocationDetailPage({ isDark }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -122,6 +122,7 @@ export default function LocationDetailPage() {
       handleDeleteLocation={handleDeleteLocation}
       formData={formData}
       setFormData={setFormData}
+      isDark={isDark}
     />
   );
 }

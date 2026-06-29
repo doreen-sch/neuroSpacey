@@ -63,6 +63,10 @@ const StyledNavBar = styled.nav`
   align-items: center;
   justify-content: space-around;
   border-top: 1px solid var(--color-surface-300);
+  body.dark & {
+    background-color: var(--color-surfaceDark-900);
+    border-top: 1px solid var(--color-surfaceDark-700);
+  }
 `;
 
 const StyledNavButton = styled.button`
@@ -85,11 +89,16 @@ const StyledNavButton = styled.button`
     background-color: var(--color-primary-600);
     border-radius: var(--radius-full);
   }
-
+  body.dark &.active::before {
+    background-color: var(--color-surfaceDark-400);
+  }
   svg {
     width: 1.8rem;
     height: 1.8rem;
     stroke: var(--color-text-700);
     fill: none;
+  }
+  body.dark & svg {
+    stroke: var(--color-textDark-300);
   }
 `;

@@ -48,6 +48,13 @@ export default function App({ Component, pageProps }) {
     description: "",
   });
 
+  const [isDark, setIsDark] = useState(false);
+
+  function toggleDarkMode() {
+    setIsDark(!isDark);
+    document.body.classList.toggle("dark");
+  }
+
   async function handleAddLocation(event) {
     event.preventDefault();
     const locationFormData = new FormData(event.target);
@@ -81,10 +88,9 @@ export default function App({ Component, pageProps }) {
       <SWRConfig value={{ fetcher }}>
         <GlobalStyle />
         <Toaster />
-        <BurgerMenu />
-
+        <BurgerMenu isDark={isDark} onToggleDarkMode={toggleDarkMode} />
         <main>
-          <Component {...pageProps} />
+          <Component {...pageProps} isDark={isDark} />
         </main>
         <NavBar
           handleAddLocation={handleAddLocation}

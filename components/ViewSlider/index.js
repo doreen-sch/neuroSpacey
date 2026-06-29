@@ -60,6 +60,10 @@ const StyledTab = styled.button`
     height: 2rem;
     fill: var(--color-text-100);
   }
+
+  body.dark & {
+    background-color: var(--color-surfaceDark-600);
+  }
 `;
 const StyledIconWrapper = styled(motion.div)`
   display: flex;
@@ -79,4 +83,7 @@ const StyledBar = styled.div`
     $isMap ? "translateX(0)" : "translateX(calc(100vw - 1rem))"};
 
   transition: transform 0.4s ease-in-out;
+  body.dark & {
+    background-color: var(--color-surfaceDark-600);
+  }
 `;

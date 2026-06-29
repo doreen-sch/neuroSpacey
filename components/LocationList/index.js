@@ -1,7 +1,7 @@
 import LocationCard from "@/components/LocationCard";
 import styled from "styled-components";
 
-export default function LocationList({ locations }) {
+export default function LocationList({ locations, isDark }) {
   if (locations.length === 0)
     return <p>There is no location in your database.</p>;
 
@@ -9,7 +9,7 @@ export default function LocationList({ locations }) {
     <StyledList>
       {locations.map((location) => (
         <StyledListItem key={location._id}>
-          <LocationCard location={location} />
+          <LocationCard location={location} isDark={isDark} />
         </StyledListItem>
       ))}
     </StyledList>
