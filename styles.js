@@ -227,8 +227,21 @@ var(--color-primaryDark-50) 80%
 
 }
 
-  h1, h2, h3 {
-  font-family: var(--font-display), serif;
-    color: var(--color-text-800);
+body.dark{
+  background: linear-gradient(
+    180deg,
+    var(--color-backgroundDark-950) 0%,
+    var(--color-backgroundDark-900) 100%
+  );
+}
+
+body.dark * {
+  color: var(--color-textDark-200);
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+  color: var(--color-textDark-200);
 }
 `;

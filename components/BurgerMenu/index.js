@@ -1,43 +1,37 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import styled from "styled-components";
-import { useState } from "react";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import SunIcon from "/public/icons/clear-sky.png";
+import SunIconDark from "/public/icons/clear-sky_darkmode.png";
 import MoonIcon from "/public/icons/night-mode.png";
 
-export default function BurgerMenu() {
-  const [isDark, setIsDark] = useState(false);
-
-  function toggleDarkMode() {
-    setIsDark(!isDark);
-    document.body.classList.toggle("dark");
-  }
-
+export default function BurgerMenu({ isDark, onToggleDarkMode }) {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
-        <StyledTrigger aria-label="Menü öffnen">
+        <StyledTrigger aria-label="Menü öffnen" $isDark={isDark}>
           <HamburgerMenuIcon />
         </StyledTrigger>
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
-        <StyledContent sideOffset={8} align="end">
-          <StyledItem onSelect={toggleDarkMode}>
+        <StyledContent sideOffset={8} align="end" $isDark={isDark}>
+          <StyledItem onSelect={onToggleDarkMode} $isDark={isDark}>
             <StyledItemContent>
               <Image
-                src={isDark ? SunIcon : MoonIcon}
+                src={isDark ? SunIconDark : MoonIcon}
                 alt={isDark ? "Sonne" : "Mond"}
                 width={20}
                 height={20}
               />
-              {isDark ? "Tagesmodus" : "Nachtmodus"}
+              {isDark ? "helle Ansicht" : "dunkle Ansicht"}
             </StyledItemContent>
           </StyledItem>
-          <StyledSeparator />
-          <StyledItem disabled>⚙️ Einstellungen</StyledItem>
+          <StyledSeparator $isDark={isDark} />
+          <StyledItem disabled $isDark={isDark}>
+            ⚙️ Einstellungen
+          </StyledItem>
           <DropdownMenu.Arrow asChild>
-            <StyledArrow />
+            <StyledArrow $isDark={isDark} />
           </DropdownMenu.Arrow>
         </StyledContent>
       </DropdownMenu.Portal>
@@ -60,14 +54,16 @@ const StyledTrigger = styled.button`
   svg {
     width: 2rem;
     height: 2rem;
-    stroke: var(--color-text-900);
+    stroke: ${({ $isDark }) =>
+      $isDark ? "var(--color-textDark-200)" : "var(--color-text-900)"};
     fill: none;
   }
 `;
 
 const StyledContent = styled(DropdownMenu.Content)`
   font-family: "Poppins", sans-serif;
-  background-color: var(--color-surface-50);
+  background-color: ${({ $isDark }) =>
+    $isDark ? "var(--color-surfaceDark-800)" : "var(--color-surface-50)"};
   border-radius: var(--radius-md);
   padding: 0.5rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -80,11 +76,13 @@ const StyledItem = styled(DropdownMenu.Item)`
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 0.9rem;
-  color: var(--color-text-900);
+  color: ${({ $isDark }) =>
+    $isDark ? "var(--color-textDark-200)" : "var(--color-text-900)"};
   outline: none;
 
   &:hover {
-    background-color: var(--color-surface-200);
+    background-color: ${({ $isDark }) =>
+      $isDark ? "var(--color-surfaceDark-700)" : "var(--color-surface-200)"};
   }
 
   &[data-disabled] {
@@ -101,14 +99,16 @@ const StyledItemContent = styled.div`
 
 const StyledSeparator = styled(DropdownMenu.Separator)`
   height: 1px;
-  background-color: var(--color-surface-300);
+  background-color: ${({ $isDark }) =>
+    $isDark ? "var(--color-surfaceDark-600)" : "var(--color-surface-300)"};
   margin: 0.25rem 0;
 `;
 
 const StyledArrow = styled.div`
   width: 10px;
   height: 5px;
-  background-color: var(--color-surface-50);
+  background-color: ${({ $isDark }) =>
+    $isDark ? "var(--color-surfaceDark-800)" : "var(--color-surface-50)"};
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   transform: rotate(180deg);
 `;

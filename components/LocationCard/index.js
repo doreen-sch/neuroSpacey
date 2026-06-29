@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import StilleStundeIcon from "/public/icons/hourglass.png";
-import { categoryImages } from "@/utils/categoryImages";
+import { categoryImages, categoryImagesDark } from "@/utils/categoryImages";
 
-export default function LocationCard({ location }) {
+export default function LocationCard({ location, isDark }) {
   const { name, category, description } = location;
 
-  const imageSrc = categoryImages[category];
+  const images = isDark ? categoryImagesDark : categoryImages;
+  const imageSrc = images[location.category];
 
   return (
     <StyledLink href={`/locations/${location._id}`}>
@@ -50,7 +51,6 @@ const StyledCard = styled.div`
   flex-direction: row;
   border-radius: var(--radius-sm);
   overflow: visible;
-
   background: linear-gradient(
     to right,
     var(--color-background-50),
@@ -62,6 +62,13 @@ const StyledCard = styled.div`
     0 4px 4px hsl(308deg 20% 28% / 0.05),
     0 8px 8px hsl(308deg 20% 28% / 0.05),
     0 16px 16px hsl(308deg 20% 28% / 0.03);
+  body.dark & {
+    background: linear-gradient(
+      to right,
+      var(--color-surfaceDark-800),
+      transparent
+    );
+  }
 `;
 
 const StyledImageContainer = styled.div`
@@ -74,6 +81,10 @@ const StyledImageContainer = styled.div`
   border-top: 2px solid var(--color-surface-400);
   border-top-left-radius: var(--radius-sm);
   border-bottom-left-radius: var(--radius-sm);
+  body.dark & {
+    border-bottom: 2px solid var(--color-surfaceDark-600);
+    border-top: 2px solid var(--color-surfaceDark-600);
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -113,6 +124,20 @@ const StyledTextContainer = styled.div`
       transparent
     );
   }
+  body.dark &::before {
+    background: linear-gradient(
+      to right,
+      var(--color-surfaceDark-600),
+      transparent
+    );
+  }
+  body.dark &::after {
+    background: linear-gradient(
+      to right,
+      var(--color-surfaceDark-600),
+      transparent
+    );
+  }
 `;
 
 const StyledLocationName = styled.h2`
@@ -139,6 +164,10 @@ const StyledTag = styled.span`
   border-radius: var(--radius-full);
   background-color: var(--color-surface-200);
   color: var(--color-text-900);
+  body.dark & {
+    background-color: var(--color-surfaceDark-700);
+    color: var(--color-textDark-200);
+  }
 `;
 
 const StyledDescription = styled.p`

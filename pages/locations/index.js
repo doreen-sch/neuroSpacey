@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 const MapView = dynamic(() => import("@/components/MapView"), { ssr: false });
 
-export default function HomePage() {
+export default function HomePage({ isDark }) {
   const { data: locations, error, isLoading } = useSWR("/api/locations");
 
   const [view, setView] = useState("list");
@@ -23,7 +23,7 @@ export default function HomePage() {
       <ViewSlider view={view} setView={setView} />
       <StyledViewContainer $isMap={view === "map"}>
         <StyledListPanel>
-          <LocationList locations={locations} />
+          <LocationList locations={locations} isDark={isDark} />
         </StyledListPanel>
         <StyledMapPanel>
           <MapView locations={locations} />
