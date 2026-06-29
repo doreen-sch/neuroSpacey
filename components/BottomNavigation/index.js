@@ -15,7 +15,7 @@ export default function NavBar({ handleAddLocation, formData, setFormData }) {
 
   return (
     <StyledNavBar>
-      <Link href="/">
+      <StyledNavLink href="/">
         <StyledNavButton
           type="button"
           aria-label="Home"
@@ -23,9 +23,18 @@ export default function NavBar({ handleAddLocation, formData, setFormData }) {
         >
           <HomeIcon />
         </StyledNavButton>
-      </Link>
+      </StyledNavLink>
+      <StyledNavItem>
+        <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
+          <LocationForm
+            onSubmit={handleAddLocation}
+            formData={formData}
+            setFormData={setFormData}
+          />
+        </Popover>
+      </StyledNavItem>
 
-      <Link href="/locations">
+      <StyledNavLink href="/locations">
         <StyledNavButton
           type="button"
           aria-label="Orte"
@@ -33,26 +42,20 @@ export default function NavBar({ handleAddLocation, formData, setFormData }) {
         >
           <LocationIcon />
         </StyledNavButton>
-      </Link>
-      <Popover isOpen={isOpen} onOpenChange={setIsOpen}>
-        <LocationForm
-          onSubmit={handleAddLocation}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      </Popover>
-      <StyledNavButton type="button" aria-label="Favoriten">
+      </StyledNavLink>
+      {/* <StyledNavButton type="button" aria-label="Favoriten">
         <FavouritIcon />
       </StyledNavButton>
       <StyledNavButton type="button" aria-label="Profil">
         <ProfileIcon />
-      </StyledNavButton>
+      </StyledNavButton> */}
     </StyledNavBar>
   );
 }
 
 const StyledNavBar = styled.nav`
   position: fixed;
+
   bottom: 0;
   left: 0;
   width: 100%;
@@ -61,7 +64,7 @@ const StyledNavBar = styled.nav`
   z-index: 2000;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   border-top: 1px solid var(--color-surface-300);
   body.dark & {
     background-color: var(--color-surfaceDark-900);
@@ -69,6 +72,20 @@ const StyledNavBar = styled.nav`
   }
 `;
 
+const StyledNavItem = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledNavLink = styled(Link)`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+`;
 const StyledNavButton = styled.button`
   background: none;
   border: none;
@@ -100,5 +117,10 @@ const StyledNavButton = styled.button`
   }
   body.dark & svg {
     stroke: var(--color-textDark-300);
+  }
+  a {
+    flex: 1;
+    display: flex;
+    justify-content: center;
   }
 `;

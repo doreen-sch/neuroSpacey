@@ -20,7 +20,7 @@ const customIcon = L.icon({
   popupAnchor: [0, -32],
 });
 
-export default function MapView({ locations }) {
+export default function MapView({ locations, isDark }) {
   if (!locations)
     return (
       <p>
@@ -53,7 +53,7 @@ export default function MapView({ locations }) {
         />
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles-eu.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+          url={`https://tiles-eu.stadiamaps.com/tiles/${isDark ? "alidade_smooth_dark" : "alidade_smooth"}/{z}/{x}/{y}{r}.png`}
         />
         {validLocations.map((location) => {
           const { name, coordinates, category, _id } = location;
@@ -65,10 +65,18 @@ export default function MapView({ locations }) {
               icon={customIcon}
             >
               <Popup>
-                <div>
-                  {name} <br /> {category}
-                </div>
-                <Link href={`/locations/${_id}`}>mehr Infos</Link>
+                <StyledPopupContent>
+                  <StyledPopupName>{name}</StyledPopupName>
+                  <StyledTagRow>
+                    <StyledPopupTag>{category}</StyledPopupTag>
+                    {location.isQuietHour && (
+                      <StyledPopupTag>🤫 Stille Stunde</StyledPopupTag>
+                    )}
+                  </StyledTagRow>
+                  <StyledPopupButton href={`/locations/${_id}`}>
+                    mehr Infos
+                  </StyledPopupButton>
+                </StyledPopupContent>
               </Popup>
             </Marker>
           );
@@ -91,4 +99,40 @@ const StyledMapWrapper = styled.div`
     width: 80%;
     margin: auto auto 2rem auto;
   }
+`;
+const StyledPopupContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+`;
+
+const StyledPopupName = styled.p`
+  margin: 0 0 -1rem 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+`;
+
+const StyledTagRow = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+`;
+
+const StyledPopupTag = styled.span`
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface-200);
+  color: var(--color-text-900);
+`;
+
+const StyledPopupButton = styled(Link)`
+  font-size: 0.8rem;
+  color: white;
+  background-color: var(--color-primary-200);
+  border-radius: var(--radius-full);
+  padding: 0.3rem 0.75rem;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
 `;

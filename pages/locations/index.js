@@ -26,7 +26,7 @@ export default function HomePage({ isDark }) {
           <LocationList locations={locations} isDark={isDark} />
         </StyledListPanel>
         <StyledMapPanel>
-          <MapView locations={locations} />
+          <MapView locations={locations} isDark={isDark} />
         </StyledMapPanel>
       </StyledViewContainer>
     </div>

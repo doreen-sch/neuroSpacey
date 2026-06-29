@@ -50,7 +50,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: row;
   border-radius: var(--radius-sm);
-  overflow: visible;
+  overflow: hidden;
   background: linear-gradient(
     to right,
     var(--color-background-50),
@@ -143,7 +143,7 @@ const StyledTextContainer = styled.div`
 const StyledLocationName = styled.h2`
   margin: 1rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
@@ -175,5 +175,5 @@ const StyledDescription = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin: 1rem 3rem 1rem 1rem;
+  margin: 1rem 4rem 1rem 1rem;
 `;
