@@ -25,8 +25,9 @@ export default function HomePage() {
 
   return (
     <StyledPage>
-      <StyledLogo src={logo} alt="neuroSpacey Logo" width={180} height={48} />
-
+      <StyledPageHeader>
+        <StyledLogo src={logo} alt="neuroSpacey Logo" width={180} height={48} />
+      </StyledPageHeader>
       <StyledSection>
         <StyledSectionTitle>Entdecken</StyledSectionTitle>
         <StyledSliderWrapper>
@@ -83,9 +84,15 @@ const StyledPage = styled.div`
   gap: 2rem;
 `;
 
+const StyledPageHeader = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const StyledLogo = styled(Image)`
   width: 15rem;
   height: auto;
+  margin-top: -0.75rem;
 `;
 
 const StyledSection = styled.section`
@@ -99,8 +106,7 @@ const StyledSectionTitle = styled.h2`
 `;
 
 const StyledSliderWrapper = styled.div`
-  margin: 0 -3.5rem;
-  padding: 0.5rem 0;
+  margin: 0 -3rem;
 `;
 
 const StyledDiscoverSlider = styled.div`
@@ -110,10 +116,8 @@ const StyledDiscoverSlider = styled.div`
   scroll-snap-type: x mandatory;
   scroll-padding-left: 4rem;
   scroll-padding-right: 4rem;
-
-  /* padding: 0rem 1.5rem 2rem 7rem; */
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
+  padding-left: 2rem;
+  padding-right: 1rem;
 
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -164,11 +168,12 @@ const StyledCardCity = styled.p`
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  margin: 0.5rem 0 0 0;
 `;
 
 const StyledCategorySlider = styled.div`
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   overflow-x: auto;
   padding-bottom: 1rem;
   -ms-overflow-style: none;
