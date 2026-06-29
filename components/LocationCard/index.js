@@ -7,8 +7,6 @@ import { categoryImages, categoryImagesDark } from "@/utils/categoryImages";
 export default function LocationCard({ location, isDark }) {
   const { name, category, description } = location;
 
-  // const imageSrc = categoryImages[category];
-
   const images = isDark ? categoryImagesDark : categoryImages;
   const imageSrc = images[location.category];
 

@@ -19,7 +19,6 @@ export default function LocationDetails({
 }) {
   const { name, address, description, category } = location;
 
-  // const imageSrc = categoryImages[category];
   const images = isDark ? categoryImagesDark : categoryImages;
   const imageSrc = images[category];
 
