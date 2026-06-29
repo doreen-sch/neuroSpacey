@@ -94,7 +94,10 @@ const StyledContent = styled(Dialog.Content)`
   border-radius: 10px;
   padding: 2rem;
   z-index: 1000;
-  body.dark & {
-    background-color: var(--color-surfaceDark-800);
-  }
+`;
+
+const StyledClose = styled(Dialog.Close)`
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 `;
