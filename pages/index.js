@@ -5,6 +5,9 @@ import Link from "next/link";
 import logo from "/public/neurospacey_logo.png";
 import { categoryImages } from "@/utils/categoryImages";
 import PinIcon from "/public/icons/Pin_entsättigt.png";
+import { useRef, useState } from "react";
+import ChevronLeft from "@/assets/icons/circle-chevron-left.svg";
+import ChevronRight from "@/assets/icons/circle-chevron-right.svg";
 
 const categories = [
   { name: "Einkaufen", icon: "/images/einkaufen_hell.png" },
@@ -18,6 +21,39 @@ const categories = [
 export default function HomePage() {
   const { data: locations, isLoading, error } = useSWR("/api/locations");
 
+  const sliderRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const categoryRef = useRef(null);
+  const [canCatScrollLeft, setCanCatScrollLeft] = useState(false);
+  const [canCatScrollRight, setCanCatScrollRight] = useState(true);
+
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const [isCatScrolling, setIsCatScrolling] = useState(false);
+  const catScrollTimeout = useRef(null);
+
+  function handleScroll() {
+    const el = sliderRef.current;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+    setIsScrolling(true);
+    clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => setIsScrolling(false), 500);
+  }
+
+  const scrollTimeout = useRef(null);
+
+  function handleCategoryScroll() {
+    const el = categoryRef.current;
+    setCanCatScrollLeft(el.scrollLeft > 0);
+    setCanCatScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+    setIsCatScrolling(true);
+    clearTimeout(catScrollTimeout.current);
+    catScrollTimeout.current = setTimeout(() => setIsCatScrolling(false), 500);
+  }
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Oops… something went wrong.</p>;
 
@@ -29,49 +65,75 @@ export default function HomePage() {
         <StyledLogo src={logo} alt="neuroSpacey Logo" width={180} height={48} />
       </StyledPageHeader>
       <StyledSection>
-        <StyledSectionTitle>Entdecken</StyledSectionTitle>
+        <StyledSectionTitle>Neues entdecken</StyledSectionTitle>
         <StyledSliderWrapper>
-          <StyledDiscoverSlider>
-            {newestLocations.map((location) => (
-              <StyledDiscoverCard
-                key={location._id}
-                href={`/locations/${location._id}`}
-              >
-                <StyledCardImage
-                  src={categoryImages[location.category]}
-                  alt={location.category}
-                  fill
-                />
-                <StyledCardOverlay>
-                  <StyledCardName>{location.name}</StyledCardName>
-                  <StyledCardCity>
-                    <Image
-                      src={PinIcon}
-                      alt="Standort"
-                      width={16}
-                      height={20}
-                    />{" "}
-                    {location.address.city}
-                  </StyledCardCity>
-                </StyledCardOverlay>
-              </StyledDiscoverCard>
-            ))}
-          </StyledDiscoverSlider>
+          <StyledSliderContainer>
+            {canScrollLeft && !isScrolling && (
+              <StyledScrollIndicator $side="left">
+                <ChevronLeft />
+              </StyledScrollIndicator>
+            )}
+            <StyledDiscoverSlider ref={sliderRef} onScroll={handleScroll}>
+              {newestLocations.map((location) => (
+                <StyledDiscoverCard
+                  key={location._id}
+                  href={`/locations/${location._id}`}
+                >
+                  <StyledCardImage
+                    src={categoryImages[location.category]}
+                    alt={location.category}
+                    fill
+                  />
+                  <StyledCardOverlay>
+                    <StyledCardName>{location.name}</StyledCardName>
+                    <StyledCardCity>
+                      <Image
+                        src={PinIcon}
+                        alt="Standort"
+                        width={16}
+                        height={20}
+                      />
+                      {location.address.city}
+                    </StyledCardCity>
+                  </StyledCardOverlay>
+                </StyledDiscoverCard>
+              ))}
+            </StyledDiscoverSlider>
+            {canScrollRight && !isScrolling && (
+              <StyledScrollIndicator $side="right">
+                <ChevronRight />
+              </StyledScrollIndicator>
+            )}
+          </StyledSliderContainer>
         </StyledSliderWrapper>
       </StyledSection>
-
       <StyledSection>
-        <StyledSectionTitle>Kategorien</StyledSectionTitle>
-        <StyledCategorySlider>
-          {categories.map((cat) => (
-            <StyledCategoryItem key={cat.name}>
-              <StyledCategoryImageWrapper>
-                <Image src={cat.icon} alt={cat.name} fill />
-              </StyledCategoryImageWrapper>
-              <StyledCategoryName>{cat.name}</StyledCategoryName>
-            </StyledCategoryItem>
-          ))}
-        </StyledCategorySlider>
+        <StyledSectionTitle>Orte nach Kategorien</StyledSectionTitle>
+        <StyledCategoryWrapper>
+          {canCatScrollLeft && !isCatScrolling && (
+            <StyledScrollIndicator $side="left">
+              <ChevronLeft />
+            </StyledScrollIndicator>
+          )}
+          <StyledCategorySlider
+            ref={categoryRef}
+            onScroll={handleCategoryScroll}
+          >
+            {categories.map((category) => (
+              <StyledCategoryItem key={category.name}>
+                <StyledCategoryImageWrapper>
+                  <Image src={category.icon} alt={category.name} fill />
+                </StyledCategoryImageWrapper>
+                <StyledCategoryName>{category.name}</StyledCategoryName>
+              </StyledCategoryItem>
+            ))}
+          </StyledCategorySlider>
+          {canCatScrollRight && !isCatScrolling && (
+            <StyledScrollIndicator $side="right">
+              <ChevronRight />
+            </StyledScrollIndicator>
+          )}
+        </StyledCategoryWrapper>
       </StyledSection>
     </StyledPage>
   );
@@ -93,6 +155,27 @@ const StyledLogo = styled(Image)`
   width: 15rem;
   height: auto;
   margin-top: -0.75rem;
+`;
+
+const StyledSliderContainer = styled.div`
+  position: relative;
+`;
+
+const StyledScrollIndicator = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  ${({ $side }) => ($side === "left" ? "left: 2.7rem;" : "right: 1rem;")}
+  z-index: 10;
+  pointer-events: none;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    stroke: var(--color-text-700);
+    fill: none;
+    opacity: 70%;
+  }
 `;
 
 const StyledSection = styled.section`
@@ -174,6 +257,9 @@ const StyledCardCity = styled.p`
 const StyledCategorySlider = styled.div`
   display: flex;
   gap: 1rem;
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+
   overflow-x: auto;
   padding-bottom: 1rem;
   -ms-overflow-style: none;
@@ -211,4 +297,9 @@ const StyledCategoryName = styled.span`
   color: var(--color-text-900);
   text-align: center;
   max-width: 5rem;
+`;
+
+const StyledCategoryWrapper = styled.div`
+  position: relative;
+  margin: 0 -3rem;
 `;
