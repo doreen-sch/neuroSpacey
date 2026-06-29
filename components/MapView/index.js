@@ -20,7 +20,7 @@ const customIcon = L.icon({
   popupAnchor: [0, -32],
 });
 
-export default function MapView({ locations }) {
+export default function MapView({ locations, isDark }) {
   if (!locations)
     return (
       <p>
@@ -53,7 +53,7 @@ export default function MapView({ locations }) {
         />
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://tiles-eu.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+          url={`https://tiles-eu.stadiamaps.com/tiles/${isDark ? "alidade_smooth_dark" : "alidade_smooth"}/{z}/{x}/{y}{r}.png`}
         />
         {validLocations.map((location) => {
           const { name, coordinates, category, _id } = location;

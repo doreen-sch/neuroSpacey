@@ -244,4 +244,19 @@ body.dark h2,
 body.dark h3 {
   color: var(--color-textDark-200);
 }
+
+body.dark .leaflet-control-zoom a {
+  background-color: var(--color-surfaceDark-700);
+  color: var(--color-textDark-200);
+  border-color: var(--color-surfaceDark-500);
+}
+
+body.dark .leaflet-control-attribution {
+  background-color: var(--color-surfaceDark-800);
+  color: var(--color-textDark-300);
+}
+
+body.dark .leaflet-control-attribution a {
+  color: var(--color-textDark-200);
+}
 `;
