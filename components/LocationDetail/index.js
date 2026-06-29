@@ -7,6 +7,7 @@ import AddressIcon from "/public/icons/Pin_entsättigt.png";
 import Link from "next/link";
 import BackArrow from "/assets/icons/arrow-left.svg";
 import { categoryImages } from "@/utils/categoryImages";
+import { useRouter } from "next/router";
 
 export default function LocationDetails({
   location,
@@ -19,12 +20,14 @@ export default function LocationDetails({
 
   const imageSrc = categoryImages[category];
 
+  const router = useRouter();
+
   return (
     <StyledDetailsPage>
       <StyledHeroContainer>
-        <StyledBackLink href="/locations">
+        <StyledBackButton onClick={() => router.back()} aria-label="Zurück">
           <BackArrow />
-        </StyledBackLink>
+        </StyledBackButton>
         <StyledHeroImage src={imageSrc} alt={`Illustration ${category}`} fill />
         <StyledHeroText>
           <h1>{name}</h1>
@@ -95,11 +98,14 @@ const StyledDetailsPage = styled.div`
   background-color: var(--color-surface-200);
 `;
 
-const StyledBackLink = styled(Link)`
+const StyledBackButton = styled.button`
   position: absolute;
   top: var(--spacing-xl);
   left: var(--spacing-xl);
   z-index: 3;
+  background: none;
+  border: none;
+  cursor: pointer;
   svg {
     width: 2.5rem;
     height: 2.5rem;

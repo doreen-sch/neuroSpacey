@@ -29,27 +29,34 @@ export default function HomePage() {
 
       <StyledSection>
         <StyledSectionTitle>Entdecken</StyledSectionTitle>
-        <StyledDiscoverSlider>
-          {newestLocations.map((location) => (
-            <StyledDiscoverCard
-              key={location._id}
-              href={`/locations/${location._id}`}
-            >
-              <StyledCardImage
-                src={categoryImages[location.category]}
-                alt={location.category}
-                fill
-              />
-              <StyledCardOverlay>
-                <StyledCardName>{location.name}</StyledCardName>
-                <StyledCardCity>
-                  <Image src={PinIcon} alt="Standort" width={16} height={20} />{" "}
-                  {location.address.city}
-                </StyledCardCity>
-              </StyledCardOverlay>
-            </StyledDiscoverCard>
-          ))}
-        </StyledDiscoverSlider>
+        <StyledSliderWrapper>
+          <StyledDiscoverSlider>
+            {newestLocations.map((location) => (
+              <StyledDiscoverCard
+                key={location._id}
+                href={`/locations/${location._id}`}
+              >
+                <StyledCardImage
+                  src={categoryImages[location.category]}
+                  alt={location.category}
+                  fill
+                />
+                <StyledCardOverlay>
+                  <StyledCardName>{location.name}</StyledCardName>
+                  <StyledCardCity>
+                    <Image
+                      src={PinIcon}
+                      alt="Standort"
+                      width={16}
+                      height={20}
+                    />{" "}
+                    {location.address.city}
+                  </StyledCardCity>
+                </StyledCardOverlay>
+              </StyledDiscoverCard>
+            ))}
+          </StyledDiscoverSlider>
+        </StyledSliderWrapper>
       </StyledSection>
 
       <StyledSection>
@@ -91,12 +98,23 @@ const StyledSectionTitle = styled.h2`
   font-size: 1.5rem;
 `;
 
+const StyledSliderWrapper = styled.div`
+  margin: 0 -3.5rem;
+  padding: 0.5rem 0;
+`;
+
 const StyledDiscoverSlider = styled.div`
   display: flex;
   gap: 2rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 1rem;
+  scroll-padding-left: 4rem;
+  scroll-padding-right: 4rem;
+
+  /* padding: 0rem 1.5rem 2rem 7rem; */
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -109,14 +127,14 @@ const StyledDiscoverCard = styled(Link)`
   flex-shrink: 0;
   width: 15rem;
   height: 20rem;
+  margin: 0 0 0 1rem;
   border-radius: var(--radius-lg);
   overflow: hidden;
   scroll-snap-align: start;
   text-decoration: none;
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 8px 16px rgba(0, 0, 0, 0.15),
-    0 16px 32px rgba(0, 0, 0, 0.04);
+    0 6px 9px rgba(0, 0, 0, 0.12),
+    0 3px 6px rgba(0, 0, 0, 0.12);
 `;
 
 const StyledCardImage = styled(Image)`
@@ -178,6 +196,9 @@ const StyledCategoryImageWrapper = styled.div`
   border-radius: var(--radius-full);
   overflow: hidden;
   background-color: var(--color-surface-200);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 3px 6px rgba(0, 0, 0, 0.12);
 `;
 
 const StyledCategoryName = styled.span`
